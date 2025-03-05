@@ -19,3 +19,6 @@ Then we simply install the dependencies from the [requirements.txt](./requiremen
 ```bash
 pip install -r requirements.txt
 ```
+
+> Note
+> `qiskit-terra` seems to be incompatible with `qiskit>=1.0` as it creates importerror. See the details [here](https://docs.quantum.ibm.com/migration-guides/qiskit-1.0-installation#import-qiskit-raises-importerror).
