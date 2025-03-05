@@ -1,0 +1,16 @@
+qiskit-ibm-runtime # For hardware access
+ipykernel          # to be able to use as notebook in vscode
+
+# Core components (strictly Qiskit 1.0+)
+qiskit>=1.0
+qiskit-terra
+qiskit-aer
+
+# Domain libraries (use open-ended constraints for compatibility)
+qiskit-nature>=0.5       # Quantum chemistry (post-Qiskit-1.0 starts at 0.5.0)
+qiskit-optimization>=0.6 # Optimization (post-Qiskit-1.0 starts at 0.6.0)
+qiskit-machine-learning>=0.7  # ML (post-Qiskit-1.0 starts at 0.7.0)
+
+# pennylane part
+pennylane
+pennylane-qiskit
