@@ -12,7 +12,6 @@ frameborder="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; pict
 ## Prerequisite (read beforehand)
 - Algebra (missing)
     - Vectors:
-
     <iframe width="640" height="360"
     src="https://www.youtube.com/watch?v=fNk_zzaMoSslist=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab" frameborder="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
