@@ -5,7 +5,9 @@
 - All training material should be in Qiskit
 - Topics for introduction
 
-## Prerequisite (read beforehand)
+
+## Prerequisite (read beforehand)
+
 - Algebra (missing)
     - Vectors:
     [Vectors, chapter 1, Essence of linear Algebra (Video)](https://youtu.be/fNk_zzaMoSs?si=YgNzHf28LbB4xiyA)
