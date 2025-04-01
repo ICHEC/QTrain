@@ -9,6 +9,7 @@ qiskit-optimization>=0.6      # Optimization (post-Qiskit-1.0 starts at 0.6.0)
 qiskit-machine-learning>=0.7  # ML (post-Qiskit-1.0 starts at 0.7.0)
 qiskit_finance>=0.4           # Quantum finance
 
+qiskit-nature-pyscf           # pyscf example uses this
 # pennylane part
 pennylane                     # main pennylane package
 pennylane-qiskit              # qiskit plugin
