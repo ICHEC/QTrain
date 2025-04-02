@@ -1,4 +1,5 @@
 ipykernel                     # to be able to use as notebook in vscode
+matplotlib                    # for plotting graph
 # Core components (strictly Qiskit 1.0+)
 qiskit[visualization]>=1.0    # main qiskit package
 qiskit-aer                    # qiskit-aer
