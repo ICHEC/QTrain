@@ -8,7 +8,7 @@ $$
 
 Let’s break this down:
 
-- $ \hbar $ is the **reduced Planck's constant**, which is Planck’s constant $ h $ divided by $2\pi$. It appears throughout quantum mechanics and ensures the equation has correct units.
+- $\hbar$ is the **reduced Planck's constant**, which is Planck’s constant $ h $ divided by $2\pi$. It appears throughout quantum mechanics and ensures the equation has correct units.
 - $ \ket{\psi(t)} $ is the state of the system at time $ t $. It's a vector in a complex vector space called **Hilbert space**.
 - The operator $ H(t) $, called the **Hamiltonian**, plays a central role. It represents the **total energy** of the system — both kinetic (motion) and potential (position-dependent forces).
 - The left-hand side of the equation is the **rate of change** of the state with respect to time, and the right-hand side tells us how the Hamiltonian causes this change.
