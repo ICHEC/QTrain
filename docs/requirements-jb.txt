@@ -3,13 +3,9 @@ jupyter-book
 jupyterlab_myst
 jupytercards
 jupyterquiz
-manim
 matplotlib
-matplotlib-venn
 numpy
 pylatexenc
-qiskit
-qiskit-aer
 sphinxcontrib.mermaid
 sphinxcontrib.youtube
 sphinxcontrib-drawio
