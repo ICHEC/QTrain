@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt -f install ffmpeg
-        pip install -r requirements.txt
+        pip install -r docs/requirements-jb.txt
 
 
     # Build the book
