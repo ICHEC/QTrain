@@ -53,3 +53,33 @@
 - Grover?, but simpler/shorter, more showing the different stages of the end-to-end pipeline (data preprocessing, quantum computation, result interpretation)
 
 > [NOTE] closing jupyter lab does not stop the job on the HPC note – need to document (using scancel)
+
+```mermaid
+
+graph TD
+subgraph Problem
+direction LR;
+    A((Define Molecule))
+    A --> B(Select active orbitals & electrons)
+end
+    
+subgraph Mapping
+direction LR;
+    C(Choose Qubit Mapping: Jordan-Wigner/Parity)
+    C --> D(Select Ansatz: UCCSD, PUCCD, etc. This defines circuit structure.)
+end
+    Problem --> Mapping
+    
+subgraph Circuit
+direction LR;
+    E(Initialize Parameters - all zero)
+    E --> F(Initial state = Hartree-Fock state)
+    F --> G(Run Quantum Circuit & Measure)
+end
+    Mapping --> Circuit
+    
+    Circuit --> H(Compute Energy i.e. Expectation Value of Hamiltonian)
+    H --> I{Convergence?}
+    I -- No --> J(Update Parameters via Classical Optimizer) --> Circuit
+    I -- Yes --> K(Return Optimized Energy & Parameters);
+```
