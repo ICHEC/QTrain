@@ -1,48 +1,48 @@
 # Scynergy 2025
 
-## First link with material
+
+```{admonition} Welcome to SCynergy 2025 workshop!
+:class: information
+
+**advancing Supercomputing, AI, and quantum technologies in Europe**
+
+Supercomputing, artificial intelligence, and quantum computing are reshaping industries, research, and society at large. SCynergy 2025 brings together businesses, researchers, and policymakers to explore practical applications, share knowledge, and build collaborations that will shape the future of these technologies in Europe. 
+
+Organised by Supercomputing Luxembourg, with the support of EuroHPC JU and Women in HPC, SCynergy provides a platform for experts and decision-makers to discuss how high-performance computing (HPC), AI, and quantum technologies can be applied effectively across sectors such as finance, space, healthtech, and industry. 
+```
+
+```{card} See the Official program at the website:
+- [https://events.eurocc.lu/scynergy-2025](https://events.eurocc.lu/scynergy-2025)
+
+```
+
+---
+
+
+## Useful links and material
 - (TBD) Specific items from https://github.com/LuxProvide/PennyLane-GPU 
 - All training material should be in Qiskit
 - Topics for introduction
 
-
 ## Prerequisite (read beforehand)
 
 - Algebra (missing)
-    - Vectors:
-    [Vectors, chapter 1, Essence of linear Algebra (Video)](https://youtu.be/fNk_zzaMoSs?si=YgNzHf28LbB4xiyA)
-
-    - Linear combinations, span and matrices:
-    https://www.youtube.com/watch?v=k7RM-ot2NWYlist=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=2
-
-    - Linear transfromations and matrices:
-    https://www.youtube.com/watch?v=kYB8IZa5AuElist=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=3
-
-    - Matrix mutiplication:
-    https://www.youtube.com/watch?v=XkY2DOUCWMU&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=4
-
-    - Eigenvectors and eigenvalues:
-    https://www.youtube.com/watch?v=PFDu9oVAE-g&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=14
-
+    - [Vectors: Vectors, chapter 1, Essence of linear Algebra (Video)](https://youtu.be/fNk_zzaMoSs?si=YgNzHf28LbB4xiyA)
+    - [Linear combinations, span and matrices](https://www.youtube.com/watch?v=k7RM-ot2NWYlist=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=2)
+    - [Linear transfromations and matrices](https://www.youtube.com/watch?v=kYB8IZa5AuElist=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=3)
+    - [Matrix mutiplication](https://www.youtube.com/watch?v=XkY2DOUCWMU&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=4)
+    - [Eigenvectors and eigenvalues](https://www.youtube.com/watch?v=PFDu9oVAE-g&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=14)
 - Complex numbers (missing)
-    - Complex number overview:
-    [Introduction to Partial Differential Equations](https://math.libretexts.org/Bookshelves/Differential_Equations/Introduction_to_Partial_Differential_Equations_(Herman)/08%3A_Complex_Representations_of_Functions/8.02%3A_Complex_Numbers)
-
-    - Imaginary numbers:
-    https://www.youtube.com/watch?v=hqr1DtXXHpY&list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3
-
-    - Complex numbers
-    https://www.youtube.com/watch?v=bmsapLZM2Uo&list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3&index=2
-
-    - https://www.youtube.com/watch?v=V7mECV0M1ys&list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3&index=5
-
+    - [Complex number overview: Introduction to Partial Differential Equations](https://math.libretexts.org/Bookshelves/Differential_Equations/Introduction_to_Partial_Differential_Equations_(Herman)/08%3A_Complex_Representations_of_Functions/8.02%3A_Complex_Numbers)
+    - [Imaginary numbers](https://www.youtube.com/watch?v=hqr1DtXXHpY&list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3)
+    - [Complex numbers](https://www.youtube.com/watch?v=bmsapLZM2Uo&list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3&index=2)
+    - [Another](https://www.youtube.com/watch?v=V7mECV0M1ys&list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3&index=5)
     - [Linear gradient (2D), Optimisation related:](http://www.cedar.buffalo.edu/~srihari/CSE676/4.2%20Gradient-based%20Optimization.pdf)
 
 - Qubits, Gates, circuits (missing)
     - [Bits to Qubits](https://ichec.github.io/ct4106/lecture-03/from-bits-to-qubits.html)
 - Hamiltonian - introduction (missing)
-    - https://www.youtube.com/watch?v=BusR0WQ_Gxo
-
+    - [Youtube](https://www.youtube.com/watch?v=BusR0WQ_Gxo)
 - Classical SVM (?, missing)
 - Live tutorial
 - Qiskit introduction (adapt from Pennylane one)
@@ -54,7 +54,7 @@
 
 > [NOTE] closing jupyter lab does not stop the job on the HPC note – need to document (using scancel)
 
-```mermaid
+```{mermaid}
 
 graph TD
 subgraph Problem
@@ -83,3 +83,17 @@ end
     I -- No --> J(Update Parameters via Classical Optimizer) --> Circuit
     I -- Yes --> K(Return Optimized Energy & Parameters);
 ```
+
+## Acknowledgements
+
+We extend our gratitude to the Irish Centre for High-End Computing (ICHEC) and University of Galway for providing computing and for all-encompassing invaluable support. This project was funded by the EuroHPC JU under grant agreement No 951732 and Ireland.
+
+```{warning}
+Add appropriate logos.
+```
+
+<div>
+  <img src="images/ICHEC.png" width="250" style="display: inline-block; margin-right: 30px;">
+  <img src="images/UoG_.png" width="235" style="display: inline-block; margin-right: 30px;">
+  <img src="images/EuroCC-Ireland.png" width="80" style="display: inline-block;">
+</div>
