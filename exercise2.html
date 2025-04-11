@@ -356,7 +356,8 @@ document.write(`
 <section id="topic-2-qsvm4eo">
 <h2>Topic 2: QSVM4EO<a class="headerlink" href="#topic-2-qsvm4eo" title="Link to this heading">#</a></h2>
 <p>This notebook will present the an example of using quantum-enhanced support vector machines (QSVM) for classification tasks on multi-spectral Earth Observation (EO) data. The main topics covered are introduction to classical SVM, where quantum computation could be used in the SVM calculations, the intricacies of preparing and encoding the classical data into useful quantum states and training QSVMs on gate-based quantum software simulators. Finally, some results on comparing classical and quantum-enhanced SVM models will be presented.</p>
-<p>QSVM code is adapted from Qiskit QSVM example: <a class="reference external" href="https://qiskit-community.github.io/qiskit-machine-learning/tutorials/03_quantum_kernel.html">https://qiskit-community.github.io/qiskit-machine-learning/tutorials/03_quantum_kernel.html</a></p>
+<p>QSVM code is adapted from Qiskit QSVM example:</p>
+<p><a class="reference external" href="https://qiskit-community.github.io/qiskit-machine-learning/tutorials/03_quantum_kernel.html">https://qiskit-community.github.io/qiskit-machine-learning/tutorials/03_quantum_kernel.html</a></p>
 </section>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
@@ -370,11 +371,13 @@ document.write(`
 <figure class="align-center">
 <img alt="_images/SVM_margin.png" src="_images/SVM_margin.png" />
 </figure>
-<p>Dual Lagrangian formulation:</p>
+<div class="note admonition">
+<p class="admonition-title">Dual Lagrangian formulation:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathcal{L}(\boldsymbol{\alpha})=\sum_{n=1}^{N} \alpha_{n}-\frac{1}{2} \sum_{n=1}^{N} \sum_{m=1}^{N} y_{n} y_{m} \alpha_{n} \alpha_{m} \mathbf{x}_{n}^{\top} \mathbf{x}_{m}
 \]</div>
+</div>
 <figure class="align-center">
 <img alt="_images/SVM_kernel.png" src="_images/SVM_kernel.png" />
 </figure>
@@ -395,11 +398,18 @@ document.write(`
 \hline
 \end{array}
 \end{split}\]</div>
-<figure class="align-center">
+<figure class="align-center" id="id1">
 <img alt="_images/SVM_QSVM_workflows.png" src="_images/SVM_QSVM_workflows.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Classical and Quantum enhanced SVG workflow</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
 </figure>
-<figure class="align-center">
-<img alt="_images/kernel_circuit.png" src="_images/kernel_circuit.png" />
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/kernel_circuit.png"><img alt="_images/kernel_circuit.png" src="_images/kernel_circuit.png" style="width: 150%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">A schematic of the quantum circuit.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
 </figure>
 </section>
 </section>

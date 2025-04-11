@@ -357,19 +357,20 @@ document.write(`
 <h2>Portfolio Optimization<a class="headerlink" href="#portfolio-optimization" title="Link to this heading">#</a></h2>
 <p>Adapted from:</p>
 <p><a class="reference external" href="https://qiskit-community.github.io/qiskit-finance/tutorials/01_portfolio_optimization.html">https://qiskit-community.github.io/qiskit-finance/tutorials/01_portfolio_optimization.html</a></p>
-<p>We are given a set of <span class="math notranslate nohighlight">\(n\)</span> assets <span class="math notranslate nohighlight">\(\{1, 2, ..., n\}\)</span>, each with an expected return <span class="math notranslate nohighlight">\(\mu_i\)</span>.
+<p>We are given a set of <span class="math notranslate nohighlight">\(n\)</span> assets, labeled as <span class="math notranslate nohighlight">\(\{1, 2, ..., n\}\)</span>, each with an expected return <span class="math notranslate nohighlight">\(\mu_i\)</span>.
 In this simplified model, we have a binary choice: either choose an asset of do not.
-We wish to find the maximum return:
-$<span class="math notranslate nohighlight">\( \max_{x_i} \left( \sum_i \mu_i x_i \right) = \min_{x_i} \left( - \sum_i \mu_i x_i \right)\)</span><span class="math notranslate nohighlight">\(
-where \)</span>x_i \in {0, 1}$ indicates a decision:</p>
+We wish to find the maximum return:</p>
+<div class="math notranslate nohighlight">
+\[ \max_{x_i} \left( \sum_i \mu_i x_i \right) = \min_{x_i} \left( - \sum_i \mu_i x_i \right)\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_i \in \{0, 1\}\)</span> indicates a decision:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(x_i=1\)</span> pick asset <span class="math notranslate nohighlight">\(i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(x_i=1\)</span> we pick asset <span class="math notranslate nohighlight">\(i\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(x_i=0\)</span> don’t pick asset <span class="math notranslate nohighlight">\(i\)</span></p></li>
 </ul>
-<p>However we also want to take risk into account, which can be done via the covariances between the assets <span class="math notranslate nohighlight">\(\sigma_{ij}\)</span>.
-Thus we want to minimize the following cost function:
-$<span class="math notranslate nohighlight">\(C(\{x_i\}) = - \sum_i \mu_i x_i  + q\sum_{ij} \sigma_{ij} x_i x_j\)</span><span class="math notranslate nohighlight">\(
-where \)</span>q$ is the risk factor.</p>
+<p>However we also want to take risk into account, which can be done via the covariances between the assets <span class="math notranslate nohighlight">\(\sigma_{ij}\)</span>. Thus we want to minimize the following cost function:</p>
+<div class="math notranslate nohighlight">
+\[C(\{x_i\}) = - \sum_i \mu_i x_i  + q\sum_{ij} \sigma_{ij} x_i x_j\]</div>
+<p>where <span class="math notranslate nohighlight">\(q\)</span> is the risk factor.</p>
 <p>To understand this cost function note that:</p>
 <ul class="simple">
 <li><p>For <span class="math notranslate nohighlight">\(q=0\)</span> we just pick the best assests based on expected return</p></li>
@@ -385,13 +386,16 @@ The number of assets <code class="docutils literal notranslate"><span class="pre
 </section>
 <section id="define-terms">
 <h2>Define Terms<a class="headerlink" href="#define-terms" title="Link to this heading">#</a></h2>
-<p>If <span class="math notranslate nohighlight">\(p_i^{(t)}\)</span> is the price at time <span class="math notranslate nohighlight">\(t\)</span> for asset <span class="math notranslate nohighlight">\(i\)</span> then define <span class="math notranslate nohighlight">\(d_i^{(t)}\)</span> as the return at time <span class="math notranslate nohighlight">\(t\)</span>
-$<span class="math notranslate nohighlight">\( d_i^{(t)} = \frac{p_i^{(t+1)} - p_i^{(t)}}{p_i^{(t)}} \)</span>$</p>
-<p>To compute <span class="math notranslate nohighlight">\(\mu_i\)</span> we calculate the mean return over the whole period:
-$<span class="math notranslate nohighlight">\( \mu_i = \frac{1}{T} \sum_t d_i^{(t)} \)</span><span class="math notranslate nohighlight">\(
-and similarly for the covariance
-\)</span><span class="math notranslate nohighlight">\( \sigma_{ij} = \frac{1}{T-2} \sum_t (d_i^{(t)} - \mu_i ) (d_j^{(t)} - \mu_j ) \)</span><span class="math notranslate nohighlight">\(
-where \)</span>T$ is the total number of timesteps.</p>
+<p>If <span class="math notranslate nohighlight">\(p_i^{(t)}\)</span> is the price at time <span class="math notranslate nohighlight">\(t\)</span> for asset <span class="math notranslate nohighlight">\(i\)</span> then define <span class="math notranslate nohighlight">\(d_i^{(t)}\)</span> as the return at time <span class="math notranslate nohighlight">\(t\)</span></p>
+<div class="math notranslate nohighlight">
+\[ d_i^{(t)} = \frac{p_i^{(t+1)} - p_i^{(t)}}{p_i^{(t)}} \]</div>
+<p>To compute <span class="math notranslate nohighlight">\(\mu_i\)</span> we calculate the mean return over the whole period:</p>
+<div class="math notranslate nohighlight">
+\[ \mu_i = \frac{1}{T} \sum_t d_i^{(t)} \]</div>
+<p>and similarly for the covariance</p>
+<div class="math notranslate nohighlight">
+\[ \sigma_{ij} = \frac{1}{T-2} \sum_t (d_i^{(t)} - \mu_i ) (d_j^{(t)} - \mu_j ) \]</div>
+<p>where <span class="math notranslate nohighlight">\(T\)</span> is the total number of timesteps.</p>
 </section>
 <section id="classial-solution">
 <h2>Classial Solution<a class="headerlink" href="#classial-solution" title="Link to this heading">#</a></h2>
@@ -399,33 +403,38 @@ where \)</span>T$ is the total number of timesteps.</p>
 </section>
 <section id="quantum-solution">
 <h2>Quantum Solution<a class="headerlink" href="#quantum-solution" title="Link to this heading">#</a></h2>
-<p>To Solve on a QC, we change to <span class="math notranslate nohighlight">\(x_i=(1-z_i)/2\)</span>
-$<span class="math notranslate nohighlight">\(
+<p>To Solve on a QC, we change to <span class="math notranslate nohighlight">\(x_i=(1-z_i)/2\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{split}
 C(\{z_i\}) &amp;= \frac{1}{2} \sum_i (\mu_i z_i-\mu_i) + \frac{q}{4}\sum_{ij} (\sigma_{ij} - \sigma_{ij} z_j  - \sigma_{ij} z_i + \sigma_{ij} z_i z_j) \\
-&amp;= \frac{1}{4} \sum_i (q\sigma_{ii}-2\mu_i) + \frac{q}{4}\sum_{ij} \sigma_{ij} + \frac{1}{4} \sum_i \left(2 \mu_i  - q\sum_{j} \sigma_{ij} - q\sum_{j} \sigma_{ji} \right) z_i + \frac{q}{4}\sum_{i \ne j} \sigma_{ij} z_i z_j  \\
+&amp;= \frac{1}{4} \sum_i (q\sigma_{ii}-2\mu_i) + \frac{q}{4}\sum_{ij} \sigma_{ij} \\
+&amp;+ \frac{1}{4} \sum_i \left(2 \mu_i  - q\sum_{j} \sigma_{ij} - q\sum_{j} \sigma_{ji} \right) z_i + \frac{q}{4}\sum_{i \ne j} \sigma_{ij} z_i z_j  \\
 &amp;= \text{const} + \frac{1}{4}\left(\sum_i  c_i z_i + q\sum_{i \ne j} \sigma_{ij} z_i z_j \right) \\
 \end{split}
-\)</span><span class="math notranslate nohighlight">\(
-Now we have the Quantum Hamiltonian:
-\)</span><span class="math notranslate nohighlight">\(H = \sum_i  c_i Z_i + q\sum_{i \ne j} \sigma_{ij} Z_i Z_j \)</span>$</p>
+\end{split}\]</div>
+<p>Now we have the Quantum Hamiltonian:</p>
+<div class="math notranslate nohighlight">
+\[H = \sum_i  c_i Z_i + q\sum_{i \ne j} \sigma_{ij} Z_i Z_j \]</div>
 <p>Given an ansatz <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span> we minimize <span class="math notranslate nohighlight">\(\langle \psi(\theta)|H|\psi(\theta)\rangle\)</span> to find our solution.</p>
 </section>
 <section id="with-constraint">
 <h2>With constraint<a class="headerlink" href="#with-constraint" title="Link to this heading">#</a></h2>
-<p>Suppose we have a budget <span class="math notranslate nohighlight">\(B \in N\)</span> we must spend, i.e.
-$<span class="math notranslate nohighlight">\(\sum_i x_i = B\)</span>$</p>
+<p>Suppose we have a budget <span class="math notranslate nohighlight">\(B \in N\)</span> we must spend, i.e.</p>
+<div class="math notranslate nohighlight">
+\[\sum_i x_i = B\]</div>
 </section>
 <section id="id1">
 <h2>Quantum Solution<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>We can force our quantum algorithm to find such solution by introducing a penalty term in the cost function
-$<span class="math notranslate nohighlight">\(
+<p>We can force our quantum algorithm to find such solution by introducing a penalty term in the cost function</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{split}
 C_{\text{penalty}} &amp;= \lambda \left(\sum_i x_i - B\right)^2 = \lambda \left( \tilde n - \frac{1}{2}\sum_i z_i\right)^2 \\
 &amp;= \lambda \tilde n ^2 + \frac{\lambda}{4}\sum_{ij} z_iz_j - \lambda \tilde n \sum_i z_i  \\
 \end{split}
-\)</span><span class="math notranslate nohighlight">\(
-where \)</span>\tilde n = \frac{n - 2B}{2}.$</p>
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde n = \frac{n - 2B}{2}.\)</span></p>
 <p>Thus our Hamiltonian is now</p>
 <div class="math notranslate nohighlight">
 \[H = \sum_i  \left(c_i - \lambda \tilde n \right) Z_i + \sum_{i \ne j} \left(q\sigma_{ij}  + \frac{\lambda}{4} \right) Z_i Z_j  \]</div>
