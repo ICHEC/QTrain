@@ -1,0 +1,25 @@
+ffmpeg
+jupyter-book
+jupyterlab_myst
+jupytercards
+jupyterquiz
+matplotlib
+numpy
+pylatexenc
+sphinxcontrib.mermaid
+sphinxcontrib.youtube
+sphinxcontrib-drawio
+# Core components (strictly Qiskit 1.0+)
+qiskit[visualization]>=1.0    # main qiskit package
+qiskit-aer                    # qiskit-aer
+qiskit-ibm-runtime            # For hardware access
+# Domain libraries (use open-ended constraints for compatibility)
+qiskit-nature>=0.5            # Quantum chemistry (post-Qiskit-1.0 starts at 0.5.0)
+qiskit-optimization>=0.6      # Optimization (post-Qiskit-1.0 starts at 0.6.0)
+qiskit-machine-learning>=0.7  # ML (post-Qiskit-1.0 starts at 0.7.0)
+qiskit_finance>=0.4           # Quantum finance
+
+qiskit-nature-pyscf           # pyscf example uses this
+# pennylane part
+pennylane                     # main pennylane package
+pennylane-qiskit              # qiskit plugin
