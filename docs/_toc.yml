@@ -5,6 +5,7 @@ format: jb-book
 root: index.md
 
 chapters:
+ - file: prerequisite.md
  - file: exercise1.md
  - file: exercise2.md
  - file: exercise3.md
