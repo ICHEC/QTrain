@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3. Quantum Optimization &#8212; Lecture Notes for SCynergy 2025</title>
+    <title>Prerequisite &#8212; Lecture Notes for SCynergy 2025</title>
   
   
   
@@ -58,12 +58,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'exercise3';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'prerequisite';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="2. Quantum machine learning for Earth observation" href="exercise2.html" />
+    <link rel="next" title="1. Quantum Chemistry: Study a molecule" href="exercise1.html" />
+    <link rel="prev" title="Scynergy 2025" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,10 +181,10 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="prerequisite.html">Prerequisite</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Prerequisite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercise1.html">1. Quantum Chemistry: Study a molecule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercise2.html">2. Quantum machine learning for Earth observation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Quantum Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise3.html">3. Quantum Optimization</a></li>
 </ul>
 
     </div>
@@ -240,7 +239,7 @@
       
       
       
-      <li><a href="_sources/exercise3.md" target="_blank"
+      <li><a href="_sources/prerequisite.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -324,7 +323,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>3. Quantum Optimization</h1>
+    <h1>Prerequisite</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -334,13 +333,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-optimization">Portfolio Optimization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-data">Create the Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-terms">Define Terms</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classial-solution">Classial Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-solution">Quantum Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#with-constraint">With constraint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quantum Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algebra">Algebra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qubits-gates-circuits">Qubits, Gates, circuits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hamiltonian-introduction-missing">Hamiltonian - introduction (missing)</a></li>
 </ul>
             </nav>
         </div>
@@ -352,93 +348,70 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="quantum-optimization">
-<h1>3. Quantum Optimization<a class="headerlink" href="#quantum-optimization" title="Link to this heading">#</a></h1>
-<section id="portfolio-optimization">
-<h2>Portfolio Optimization<a class="headerlink" href="#portfolio-optimization" title="Link to this heading">#</a></h2>
-<p>Adapted from:</p>
-<p><a class="reference external" href="https://qiskit-community.github.io/qiskit-finance/tutorials/01_portfolio_optimization.html">https://qiskit-community.github.io/qiskit-finance/tutorials/01_portfolio_optimization.html</a></p>
-<p>We are given a set of <span class="math notranslate nohighlight">\(n\)</span> assets, labeled as <span class="math notranslate nohighlight">\(\{1, 2, ..., n\}\)</span>, each with an expected return <span class="math notranslate nohighlight">\(\mu_i\)</span>.
-In this simplified model, we have a binary choice: either choose an asset of do not.
-We wish to find the maximum return:</p>
-<div class="math notranslate nohighlight">
-\[ \max_{x_i} \left( \sum_i \mu_i x_i \right) = \min_{x_i} \left( - \sum_i \mu_i x_i \right)\]</div>
-<p>where <span class="math notranslate nohighlight">\(x_i \in \{0, 1\}\)</span> indicates a decision:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="prerequisite">
+<h1>Prerequisite<a class="headerlink" href="#prerequisite" title="Link to this heading">#</a></h1>
+<p>Below is a list of topic one should touch upon, or get familiar with before the workshop.</p>
+<section id="algebra">
+<h2>Algebra<a class="headerlink" href="#algebra" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(x_i=1\)</span> we pick asset <span class="math notranslate nohighlight">\(i\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(x_i=0\)</span> don’t pick asset <span class="math notranslate nohighlight">\(i\)</span></p></li>
+<li><p><a class="reference external" href="https://youtu.be/fNk_zzaMoSs?si=YgNzHf28LbB4xiyA">Vectors: Vectors, chapter 1, Essence of linear Algebra (Video)</a></p></li>
 </ul>
-<p>However we also want to take risk into account, which can be done via the covariances between the assets <span class="math notranslate nohighlight">\(\sigma_{ij}\)</span>. Thus we want to minimize the following cost function:</p>
-<div class="math notranslate nohighlight">
-\[C(\{x_i\}) = - \sum_i \mu_i x_i  + q\sum_{ij} \sigma_{ij} x_i x_j\]</div>
-<p>where <span class="math notranslate nohighlight">\(q\)</span> is the risk factor.</p>
-<p>To understand this cost function note that:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fNk_zzaMoSs?si=11BpgxBmXKKsDvtS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <ul class="simple">
-<li><p>For <span class="math notranslate nohighlight">\(q=0\)</span> we just pick the best assests based on expected return</p></li>
-<li><p>For <span class="math notranslate nohighlight">\(q&gt;0\)</span> we take volatility into account</p></li>
-<li><p>For <span class="math notranslate nohighlight">\(q &gt;&gt;0\)</span> we pick the assets with low variance and negative covariance</p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=k7RM-ot2NWYlist=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;amp;index=2">Linear combinations, span and matrices</a></p></li>
 </ul>
-<p>For more on the portfolio model see <a class="reference external" href="https://en.wikipedia.org/wiki/Modern_portfolio_theory">here</a>.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/k7RM-ot2NWY?si=I8iSpgLq_vRCPg85" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=kYB8IZa5AuElist=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;amp;index=3">Linear transfromations and matrices</a></p></li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kYB8IZa5AuE?si=EOg6ag4rzny_EuJe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=XkY2DOUCWMU&amp;amp;list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;amp;index=4">Matrix mutiplication</a></p></li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XkY2DOUCWMU?si=TZt_74Gvwu6cvls1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=PFDu9oVAE-g&amp;amp;list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;amp;index=14">Eigenvectors and eigenvalues</a></p></li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PFDu9oVAE-g?si=brxDwAlCQha7rTxB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </section>
-<section id="create-the-data">
-<h2>Create the Data<a class="headerlink" href="#create-the-data" title="Link to this heading">#</a></h2>
-<p>We will use randomly generated data using <code class="docutils literal notranslate"><span class="pre">RandomDataProvider</span></code>.
-The number of assets <code class="docutils literal notranslate"><span class="pre">num_assets</span></code> will equal the number of qubits required in the quantum computation.</p>
+<section id="complex-numbers">
+<h2>Complex numbers<a class="headerlink" href="#complex-numbers" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://math.libretexts.org/Bookshelves/Differential_Equations/Introduction_to_Partial_Differential_Equations_(Herman)/08%3A_Complex_Representations_of_Functions/8.02%3A_Complex_Numbers">Complex number overview: Introduction to Partial Differential Equations</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=hqr1DtXXHpY&amp;amp;list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3">Imaginary numbers</a></p></li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hqr1DtXXHpY?si=8-cHSMCapdBM_e7Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=bmsapLZM2Uo&amp;amp;list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3&amp;amp;index=2">Complex numbers</a></p></li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bmsapLZM2Uo?si=LZMRjJ8WocuG4mP-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=V7mECV0M1ys&amp;amp;list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3&amp;amp;index=5">Complex numbers on Argand plane</a></p></li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/V7mECV0M1ys?si=enNHTdLMcoR2Jqpv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.cedar.buffalo.edu/~srihari/CSE676/4.2%20Gradient-based%20Optimization.pdf">Linear gradient (2D), for optimization:</a></p></li>
+</ul>
 </section>
-<section id="define-terms">
-<h2>Define Terms<a class="headerlink" href="#define-terms" title="Link to this heading">#</a></h2>
-<p>If <span class="math notranslate nohighlight">\(p_i^{(t)}\)</span> is the price at time <span class="math notranslate nohighlight">\(t\)</span> for asset <span class="math notranslate nohighlight">\(i\)</span> then define <span class="math notranslate nohighlight">\(d_i^{(t)}\)</span> as the return at time <span class="math notranslate nohighlight">\(t\)</span></p>
-<div class="math notranslate nohighlight">
-\[ d_i^{(t)} = \frac{p_i^{(t+1)} - p_i^{(t)}}{p_i^{(t)}} \]</div>
-<p>To compute <span class="math notranslate nohighlight">\(\mu_i\)</span> we calculate the mean return over the whole period:</p>
-<div class="math notranslate nohighlight">
-\[ \mu_i = \frac{1}{T} \sum_t d_i^{(t)} \]</div>
-<p>and similarly for the covariance</p>
-<div class="math notranslate nohighlight">
-\[ \sigma_{ij} = \frac{1}{T-2} \sum_t (d_i^{(t)} - \mu_i ) (d_j^{(t)} - \mu_j ) \]</div>
-<p>where <span class="math notranslate nohighlight">\(T\)</span> is the total number of timesteps.</p>
+<section id="qubits-gates-circuits">
+<h2>Qubits, Gates, circuits<a class="headerlink" href="#qubits-gates-circuits" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ichec.github.io/ct4106/lecture-03/from-bits-to-qubits.html">Bits to Qubits</a></p></li>
+</ul>
 </section>
-<section id="classial-solution">
-<h2>Classial Solution<a class="headerlink" href="#classial-solution" title="Link to this heading">#</a></h2>
-<p>Here we minimize the cost function by seacrhing through all the combinations of <span class="math notranslate nohighlight">\(\{x_i\}\)</span>. This scales as <span class="math notranslate nohighlight">\(2^{n}\)</span>.</p>
-</section>
-<section id="quantum-solution">
-<h2>Quantum Solution<a class="headerlink" href="#quantum-solution" title="Link to this heading">#</a></h2>
-<p>To Solve on a QC, we change to <span class="math notranslate nohighlight">\(x_i=(1-z_i)/2\)</span></p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{split}
-C(\{z_i\}) &amp;= \frac{1}{2} \sum_i (\mu_i z_i-\mu_i) + \frac{q}{4}\sum_{ij} (\sigma_{ij} - \sigma_{ij} z_j  - \sigma_{ij} z_i + \sigma_{ij} z_i z_j) \\
-&amp;= \frac{1}{4} \sum_i (q\sigma_{ii}-2\mu_i) + \frac{q}{4}\sum_{ij} \sigma_{ij} \\
-&amp;+ \frac{1}{4} \sum_i \left(2 \mu_i  - q\sum_{j} \sigma_{ij} - q\sum_{j} \sigma_{ji} \right) z_i + \frac{q}{4}\sum_{i \ne j} \sigma_{ij} z_i z_j  \\
-&amp;= \text{const} + \frac{1}{4}\left(\sum_i  c_i z_i + q\sum_{i \ne j} \sigma_{ij} z_i z_j \right) \\
-\end{split}
-\end{split}\]</div>
-<p>Now we have the Quantum Hamiltonian:</p>
-<div class="math notranslate nohighlight">
-\[H = \sum_i  c_i Z_i + q\sum_{i \ne j} \sigma_{ij} Z_i Z_j \]</div>
-<p>Given an ansatz <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span> we minimize <span class="math notranslate nohighlight">\(\langle \psi(\theta)|H|\psi(\theta)\rangle\)</span> to find our solution.</p>
-</section>
-<section id="with-constraint">
-<h2>With constraint<a class="headerlink" href="#with-constraint" title="Link to this heading">#</a></h2>
-<p>Suppose we have a budget <span class="math notranslate nohighlight">\(B \in N\)</span> we must spend, i.e.</p>
-<div class="math notranslate nohighlight">
-\[\sum_i x_i = B\]</div>
-</section>
-<section id="id1">
-<h2>Quantum Solution<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>We can force our quantum algorithm to find such solution by introducing a penalty term in the cost function</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{split}
-C_{\text{penalty}} &amp;= \lambda \left(\sum_i x_i - B\right)^2 = \lambda \left( \tilde n - \frac{1}{2}\sum_i z_i\right)^2 \\
-&amp;= \lambda \tilde n ^2 + \frac{\lambda}{4}\sum_{ij} z_iz_j - \lambda \tilde n \sum_i z_i  \\
-\end{split}
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\tilde n = \frac{n - 2B}{2}.\)</span></p>
-<p>Thus our Hamiltonian is now</p>
-<div class="math notranslate nohighlight">
-\[H = \sum_i  \left(c_i - \lambda \tilde n \right) Z_i + \sum_{i \ne j} \left(q\sigma_{ij}  + \frac{\lambda}{4} \right) Z_i Z_j  \]</div>
+<section id="hamiltonian-introduction-missing">
+<h2>Hamiltonian - introduction (missing)<a class="headerlink" href="#hamiltonian-introduction-missing" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=BusR0WQ_Gxo">Youtube</a></p></li>
+<li><p>Classical SVM (?, missing)</p></li>
+<li><p>Live tutorial</p></li>
+<li><p>Qiskit introduction (adapt from Pennylane one)</p></li>
+<li><p>Define and print basic circuits manually</p></li>
+<li><p>Device simulators (ideal vs noisy vs fake)</p></li>
+<li><p>Run simple circuit examples (missing?)</p></li>
+<li><p>Basic end-to-end example</p></li>
+<li><p>Grover?, but simpler/shorter, more showing the different stages of the end-to-end pipeline (data preprocessing, quantum computation, result interpretation)</p></li>
+</ul>
 </section>
 </section>
 
@@ -473,13 +446,22 @@ C_{\text{penalty}} &amp;= \lambda \left(\sum_i x_i - B\right)^2 = \lambda \left(
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="exercise2.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">2. Quantum machine learning for Earth observation</p>
+        <p class="prev-next-title">Scynergy 2025</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="exercise1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1. Quantum Chemistry: Study a molecule</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -497,13 +479,10 @@ C_{\text{penalty}} &amp;= \lambda \left(\sum_i x_i - B\right)^2 = \lambda \left(
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-optimization">Portfolio Optimization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-data">Create the Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-terms">Define Terms</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classial-solution">Classial Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-solution">Quantum Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#with-constraint">With constraint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quantum Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algebra">Algebra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-numbers">Complex numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qubits-gates-circuits">Qubits, Gates, circuits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hamiltonian-introduction-missing">Hamiltonian - introduction (missing)</a></li>
 </ul>
   </nav></div>
 

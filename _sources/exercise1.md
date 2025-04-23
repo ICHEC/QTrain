@@ -115,16 +115,18 @@ Once we decided the active space, we need to map this problem to a qubit problem
 In the exercose we show two mappers, giving us two different ways to convert the electronic structure of a molecule from a fermionic problem to a qubit problem.
 
 #### Jordan-Wigner Mapper: Simple, intuitive
-    - 1 spin orbital $\rightarrow$ 1 qubit
-    - unoccupied $\rightarrow\ket{0}$; occupied $\rightarrow\ket{1}$
-    - spin down $\rightarrow\ket{0}$; spin up $\rightarrow\ket{1}$
+- 1 spin orbital $\rightarrow$ 1 qubit
+- unoccupied $\rightarrow\ket{0}$; occupied $\rightarrow\ket{1}$
+- spin down $\rightarrow\ket{0}$; spin up $\rightarrow\ket{1}$
+
 
 #### Parity Mapper: Can reduce number of qubits required in certain cases
-    - the Parity Mapper transforms the problem into global parity information instead of directly encoding individual occupation numbers
-    - each qubit stores the total parity of all previous orbitals.
+- the Parity Mapper transforms the problem into global parity information instead of directly encoding individual occupation numbers
+- each qubit stores the total parity of all previous orbitals.
 
 In qiskit programming, it is as easy as follows -
-```pythobn
+
+```python
 mapper = JordanWignerMapper()
 mapper = ParityMapper(num_particles=(n_alpha, n_beta))
 ```

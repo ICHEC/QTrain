@@ -60,18 +60,10 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
-    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-    <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Quantum Chemistry: Study a molecule" href="exercise1.html" />
+    <link rel="next" title="Prerequisite" href="prerequisite.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,6 +184,7 @@ window.addEventListener("load", () => mermaid.run());
             </li>
         </ul>
         <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="prerequisite.html">Prerequisite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercise1.html">1. Quantum Chemistry: Study a molecule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercise2.html">2. Quantum machine learning for Earth observation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercise3.html">3. Quantum Optimization</a></li>
@@ -344,7 +337,6 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links-and-material">Useful links and material</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisite-read-beforehand">Prerequisite (read beforehand)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
             </nav>
@@ -382,90 +374,26 @@ See the Official program at the website:</div>
 <li><p>All training material should be in Qiskit</p></li>
 <li><p>Topics for introduction</p></li>
 </ul>
-</section>
-<section id="prerequisite-read-beforehand">
-<h2>Prerequisite (read beforehand)<a class="headerlink" href="#prerequisite-read-beforehand" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Algebra (missing)</p>
-<ul>
-<li><p><a class="reference external" href="https://youtu.be/fNk_zzaMoSs?si=YgNzHf28LbB4xiyA">Vectors: Vectors, chapter 1, Essence of linear Algebra (Video)</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=k7RM-ot2NWYlist=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;amp;index=2">Linear combinations, span and matrices</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=kYB8IZa5AuElist=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;amp;index=3">Linear transfromations and matrices</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=XkY2DOUCWMU&amp;amp;list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;amp;index=4">Matrix mutiplication</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=PFDu9oVAE-g&amp;amp;list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;amp;index=14">Eigenvectors and eigenvalues</a></p></li>
-</ul>
-</li>
-<li><p>Complex numbers (missing)</p>
-<ul>
-<li><p><a class="reference external" href="https://math.libretexts.org/Bookshelves/Differential_Equations/Introduction_to_Partial_Differential_Equations_(Herman)/08%3A_Complex_Representations_of_Functions/8.02%3A_Complex_Numbers">Complex number overview: Introduction to Partial Differential Equations</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=hqr1DtXXHpY&amp;amp;list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3">Imaginary numbers</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=bmsapLZM2Uo&amp;amp;list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3&amp;amp;index=2">Complex numbers</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=V7mECV0M1ys&amp;amp;list=PLHJcI57De8cp_iiPlKUDhNOexGCQYkxL3&amp;amp;index=5">Another</a></p></li>
-<li><p><a class="reference external" href="http://www.cedar.buffalo.edu/~srihari/CSE676/4.2%20Gradient-based%20Optimization.pdf">Linear gradient (2D), Optimisation related:</a></p></li>
-</ul>
-</li>
-<li><p>Qubits, Gates, circuits (missing)</p>
-<ul>
-<li><p><a class="reference external" href="https://ichec.github.io/ct4106/lecture-03/from-bits-to-qubits.html">Bits to Qubits</a></p></li>
-</ul>
-</li>
-<li><p>Hamiltonian - introduction (missing)</p>
-<ul>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=BusR0WQ_Gxo">Youtube</a></p></li>
-</ul>
-</li>
-<li><p>Classical SVM (?, missing)</p></li>
-<li><p>Live tutorial</p></li>
-<li><p>Qiskit introduction (adapt from Pennylane one)</p></li>
-<li><p>Define and print basic circuits manually</p></li>
-<li><p>Device simulators (ideal vs noisy vs fake)</p></li>
-<li><p>Run simple circuit examples (missing?)</p></li>
-<li><p>Basic end-to-end example</p></li>
-<li><p>Grover?, but simpler/shorter, more showing the different stages of the end-to-end pipeline (data preprocessing, quantum computation, result interpretation)</p></li>
-</ul>
-<blockquote>
-<div><p>[NOTE] closing jupyter lab does not stop the job on the HPC note – need to document (using scancel)</p>
-</div></blockquote>
-<pre  class="mermaid">
-        graph TD
-subgraph Problem
-direction LR;
-    A((Define Molecule))
-    A --&gt; B(Select active orbitals &amp; electrons)
-end
-    
-subgraph Mapping
-direction LR;
-    C(Choose Qubit Mapping: Jordan-Wigner/Parity)
-    C --&gt; D(Select Ansatz: UCCSD, PUCCD, etc. This defines circuit structure.)
-end
-    Problem --&gt; Mapping
-    
-subgraph Circuit
-direction LR;
-    E(Initialize Parameters - all zero)
-    E --&gt; F(Initial state = Hartree-Fock state)
-    F --&gt; G(Run Quantum Circuit &amp; Measure)
-end
-    Mapping --&gt; Circuit
-    
-    Circuit --&gt; H(Compute Energy i.e. Expectation Value of Hamiltonian)
-    H --&gt; I{Convergence?}
-    I -- No --&gt; J(Update Parameters via Classical Optimizer) --&gt; Circuit
-    I -- Yes --&gt; K(Return Optimized Energy &amp; Parameters);
-    </pre></section>
-<section id="acknowledgements">
-<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">#</a></h2>
-<p>We extend our gratitude to the Irish Centre for High-End Computing (ICHEC) and University of Galway for providing computing and for all-encompassing invaluable support. This project was funded by the EuroHPC JU under grant agreement No 951732 and Ireland.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Add appropriate logos.</p>
+<p>closing jupyter lab does not stop the job on the HPC node. One needs to release the allocation
+later using <code class="docutils literal notranslate"><span class="pre">scancel</span></code>.</p>
 </div>
-<div>
-  <img src="images/ICHEC.png" width="250" style="display: inline-block; margin-right: 30px;">
-  <img src="images/UoG_.png" width="235" style="display: inline-block; margin-right: 30px;">
-  <img src="images/EuroCC-Ireland.png" width="80" style="display: inline-block;">
-</div></section>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">#</a></h2>
+<p>We extend our gratitude to the Irish Centre for High-End Computing (ICHEC) and University of Galway for providing computing and for all-encompassing invaluable support. This project was funded by the <strong>EuroHPC JU</strong> under <strong>grant agreement No 951732</strong> and Ireland.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<a class="reference internal image-reference" href="_images/ICHEC.png"><img alt="_images/ICHEC.png" src="_images/ICHEC.png" style="width: 322px;" />
+</a>
+<a class="reference internal image-reference" href="_images/UoG_.png"><img alt="_images/UoG_.png" src="_images/UoG_.png" style="width: 300px;" />
+</a>
+<a class="reference internal image-reference" href="_images/EuroCC-Ireland.png"><img alt="_images/EuroCC-Ireland.png" src="_images/EuroCC-Ireland.png" style="width: 100px;" />
+</a>
+</div>
+</div>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -501,11 +429,11 @@ end
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="exercise1.html"
+       href="prerequisite.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1. Quantum Chemistry: Study a molecule</p>
+        <p class="prev-next-title">Prerequisite</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -526,7 +454,6 @@ end
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links-and-material">Useful links and material</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisite-read-beforehand">Prerequisite (read beforehand)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
   </nav></div>

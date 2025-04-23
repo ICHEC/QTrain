@@ -72,7 +72,7 @@ window.addEventListener("load", () => mermaid.run());
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="2. Quantum machine learning for Earth observation" href="exercise2.html" />
-    <link rel="prev" title="Scynergy 2025" href="index.html" />
+    <link rel="prev" title="Prerequisite" href="prerequisite.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -191,6 +191,7 @@ window.addEventListener("load", () => mermaid.run());
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="prerequisite.html">Prerequisite</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Quantum Chemistry: Study a molecule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercise2.html">2. Quantum machine learning for Earth observation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercise3.html">3. Quantum Optimization</a></li>
@@ -481,21 +482,21 @@ of <code class="docutils literal notranslate"><span class="pre">active</span> <s
 <p>In the exercose we show two mappers, giving us two different ways to convert the electronic structure of a molecule from a fermionic problem to a qubit problem.</p>
 <section id="jordan-wigner-mapper-simple-intuitive">
 <h4>Jordan-Wigner Mapper: Simple, intuitive<a class="headerlink" href="#jordan-wigner-mapper-simple-intuitive" title="Link to this heading">#</a></h4>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- 1 spin orbital $\rightarrow$ 1 qubit
-- unoccupied $\rightarrow\ket{0}$; occupied $\rightarrow\ket{1}$
-- spin down $\rightarrow\ket{0}$; spin up $\rightarrow\ket{1}$
-</pre></div>
-</div>
+<ul class="simple">
+<li><p>1 spin orbital <span class="math notranslate nohighlight">\(\rightarrow\)</span> 1 qubit</p></li>
+<li><p>unoccupied <span class="math notranslate nohighlight">\(\rightarrow\ket{0}\)</span>; occupied <span class="math notranslate nohighlight">\(\rightarrow\ket{1}\)</span></p></li>
+<li><p>spin down <span class="math notranslate nohighlight">\(\rightarrow\ket{0}\)</span>; spin up <span class="math notranslate nohighlight">\(\rightarrow\ket{1}\)</span></p></li>
+</ul>
 </section>
 <section id="parity-mapper-can-reduce-number-of-qubits-required-in-certain-cases">
 <h4>Parity Mapper: Can reduce number of qubits required in certain cases<a class="headerlink" href="#parity-mapper-can-reduce-number-of-qubits-required-in-certain-cases" title="Link to this heading">#</a></h4>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- the Parity Mapper transforms the problem into global parity information instead of directly encoding individual occupation numbers
-- each qubit stores the total parity of all previous orbitals.
-</pre></div>
-</div>
+<ul class="simple">
+<li><p>the Parity Mapper transforms the problem into global parity information instead of directly encoding individual occupation numbers</p></li>
+<li><p>each qubit stores the total parity of all previous orbitals.</p></li>
+</ul>
 <p>In qiskit programming, it is as easy as follows -</p>
-<div class="highlight-pythobn notranslate"><div class="highlight"><pre><span></span>mapper = JordanWignerMapper()
-mapper = ParityMapper(num_particles=(n_alpha, n_beta))
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mapper</span> <span class="o">=</span> <span class="n">JordanWignerMapper</span><span class="p">()</span>
+<span class="n">mapper</span> <span class="o">=</span> <span class="n">ParityMapper</span><span class="p">(</span><span class="n">num_particles</span><span class="o">=</span><span class="p">(</span><span class="n">n_alpha</span><span class="p">,</span> <span class="n">n_beta</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
@@ -567,12 +568,12 @@ mapper = ParityMapper(num_particles=(n_alpha, n_beta))
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="prerequisite.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Scynergy 2025</p>
+        <p class="prev-next-title">Prerequisite</p>
       </div>
     </a>
     <a class="right-next"
