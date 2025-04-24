@@ -22,29 +22,39 @@ some definition here
 
 
 The goal is to compare the accuracy and performance of different approaches:
-These approached use different type of either formalism, or approximations to formulate
-the problem to a minimization problem.
 
   1. **Hartree-Fock (HF)** as a mean-field classical approximation,
   2. **Full Configuration Interaction (FCI)** as an exact (but expensive) classical method,
   3. **Variational Quantum Eigensolver (VQE)** as a hybrid quantum-classical algorithm that is promising for near-term quantum devices.
 
-First two of the above methods are examples of classical computation, while the third one utilises quantum computing. The HF is an approximate method, which is usually very inexpensive compared to the FCI, which is a lot closer to exact solution.
+These approaches differ in either formalism, or approximations to transform the problem into a minimization. The first two of the above methods are examples of classical computation. HF is an approximate method, which is usually very inexpensive compared to the FCI, which is a lot closer to exact solution. The third mehtod (VQE) utilises quantum computing, by classically optimising the parameters of the gates of a quantum circuit.
 
 By applying these methods to the same set of molecular systems and geometries, we can compare their outcome, and use the comparison evaluate the **viability of quantum algorithms like VQE** for practical molecular simulations, especially in the context of bond dissociation and chemical reactivity — tasks that are known to challenge classical methods.
 
 Accurate ground-state energy calculations are essential for predicting molecular behavior, and hybrid quantum-classical algorithms offer a potential pathway to overcome classical scaling limits in quantum chemistry.
 
 
-### Theory
+### Theory — Classical and Quantum Solutions
 
-Explain classical and quantum solution
+Classical computational chemistry relies on solving the electronic Schrödinger equation using approximations tailored to trade accuracy for computational tractability. Among these:
 
-In this notebook, we investigate the ground-state electronic structure of dimers (molecules made up of two atoms) using both classical and quantum computational methods. Traditional quantum chemistry approaches such as Full Configuration Interaction (FCI) provide accurate results for small molecules, but quickly become too computationally expensive as the number of orbitals increases for larger molecules. To explore the potential of quantum computing in this domain, we employ the Variational Quantum Eigensolver (VQE) with a Unitary Coupled Cluster (UCCSD) ansatz, using Qiskit. By comparing the computed ground-state energies from HF, FCI, and VQE across different bond lengths, we assess the accuracy and feasibility of hybrid quantum-classical simulations for molecular electronic structure problems.
+- **Hartree-Fock (HF)** is a mean-field method that approximates electron interactions in an averaged way. It is efficient but lacks correlation energy, which limits its accuracy especially for stretched bonds or strongly correlated systems.
+  
+- **Full Configuration Interaction (FCI)** provides an exact solution within a given basis set by considering **all possible electron configurations**. It accounts for all electron correlation effects, making it a benchmark method for small systems. However, the computational cost of FCI scales **exponentially** with the number of orbitals, making it intractable for anything but very small molecules.
+
+Quantum computing offers a different paradigm. Instead of simulating all configurations explicitly, it uses **quantum bits (qubits)** to represent quantum states of the electronic orbitals directly. In particular, the **Variational Quantum Eigensolver (VQE)** is a hybrid algorithm well-suited for near-term quantum devices (also known as Noisy Intermediate-Scale Quantum — NISQ — devices). The VQE algorithm:
+
+- Uses a **parameterized quantum circuit** (ansatz) to prepare a trial wavefunction.
+- Measures the expectation value of the Hamiltonian with respect to this state. In this notebook, we simulate this measurement on a classical computer using Qiskit's quantum simulators, which emulate how a real quantum device would behave.
+- Optimizes the circuit parameters using a **classical optimizer** to minimize the energy.
+
+In this exercise, we implement VQE using the **Unitary Coupled Cluster with Single and Double excitations (UCCSD)** ansatz — a physically motivated approach that builds the trial wavefunction based on electronic excitations from a reference state. We use **Qiskit**, a widely adopted framework for quantum computing, to construct and simulate these quantum circuits.
+
+By comparing the computed ground-state energies from HF, FCI, and VQE across different bond lengths, we assess the accuracy and feasibility of hybrid quantum-classical simulations for molecular electronic structure problems.
 
 ## Computational workflow
 
-Following flowchart shows the computational workflow and illustrates how we map the problem of computing molecular energy to execution of a quantum circuit, and how it yields the ground state energy.
+The following flowchart shows the computational workflow and illustrates how we map the problem of computing molecular energy to execution of a quantum circuit, and how it yields the ground state energy.
 
 ```{mermaid}
 :align: center
@@ -88,7 +98,7 @@ end
     I -- Yes --> K(Return Optimized Energy & Parameters);
 ```
 
-A brief introduction to what Hamiltonian is can be found [here](./hamiltonian.md).
+A brief introduction to the Hamiltonian can be found [here](./hamiltonian.md).
 
 
 ### LiH As example
@@ -109,10 +119,10 @@ of `active orbitals` that we need to include.
 - We have two valence electrons, one from the outer shell of the lithium atom and one from hydrogen atom
 -  We assume that these are split evenly between spin up and down, i.e. one alpha and one beta electron
 
-Once we decided the active space, we need to map this problem to a qubit problem.
+Once we have decided the active space, we need to map this problem to a qubit problem.
 
 
-In the exercose we show two mappers, giving us two different ways to convert the electronic structure of a molecule from a fermionic problem to a qubit problem.
+In the exercise we show two mappers, giving us two different ways to convert the electronic structure of a molecule from a fermionic problem to a qubit problem.
 
 #### Jordan-Wigner Mapper: Simple, intuitive
 - 1 spin orbital $\rightarrow$ 1 qubit
@@ -154,10 +164,16 @@ Some information here.
 
 
 
-## Conclusions
-
-Real world results and experience
-
 ## References
 
-1. https://www.ichec.ie/qpfas
+- ICHEC QPFAS repository
+    - https://www.ichec.ie/qpfas
+- Hartree-Fock approximation
+    - Sherrill, C. David. "An introduction to Hartree-Fock molecular orbital theory." School of Chemistry and Biochemistry Georgia Institute of Technology https://vergil.chemistry.gatech.edu/static/content/hf-intro.pdf (2000).
+    - Szabo, A., & Ostlund, N. S. (2012). *Modern Quantum Chemistry: Introduction to Advanced Electronic Structure Theory*. Courier Corporation.
+- Full Configuration Interaction
+    - https://vergil.chemistry.gatech.edu/static/content/ci.pdf
+    - Helgaker, Trygve, Poul Jorgensen, and Jeppe Olsen. Molecular electronic-structure theory. John Wiley & Sons (2013).
+- VQE
+    - https://learning.quantum.ibm.com/tutorial/variational-quantum-eigensolver
+    - Peruzzo, Alberto, et al. "A variational eigenvalue solver on a photonic quantum processor." Nature communications 5.1 https://www.nature.com/articles/ncomms5213 (2014).
