@@ -160,7 +160,10 @@ We want to compare our solution from the quantum algorithm (VQE) with the best c
 
 ## Bond length variation
 
-Some information here.
+```{figure} ./images/EnergyVsBondLength
+:align: center
+
+```
 
 
 
