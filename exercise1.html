@@ -349,7 +349,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-defintions">Quick defintions</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-classical-and-quantum-solutions">Theory — Classical and Quantum Solutions</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-workflow">Computational workflow</a><ul class="nav section-nav flex-column">
@@ -363,7 +363,6 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bond-length-variation">Bond length variation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -391,31 +390,40 @@ document.write(`
 <section id="quick-defintions">
 <h4>Quick defintions<a class="headerlink" href="#quick-defintions" title="Link to this heading">#</a></h4>
 <p><strong>Ground state energy</strong>
-Some definition here</p>
+The <strong>ground state</strong> of a quantum system, such as an atom or molecule, is the state with the lowest possible energy. The energy of this state is called the <strong>ground state energy</strong> or sometimes the zero-point energy.</p>
 <p><strong>Electronic structure</strong>
-some definition here</p>
-<p>The goal is to compare the accuracy and performance of different approaches:
-These approached use different type of either formalism, or approximations to formulate
-the problem to a minimization problem.</p>
+The arrangement of electrons in the orbitals of atoms is referred to as the electron configuration or <strong>electronic structure</strong>.</p>
+<p>The goal is to compare the accuracy and performance of different approaches:</p>
 <ol class="arabic simple">
 <li><p><strong>Hartree-Fock (HF)</strong> as a mean-field classical approximation,</p></li>
 <li><p><strong>Full Configuration Interaction (FCI)</strong> as an exact (but expensive) classical method,</p></li>
 <li><p><strong>Variational Quantum Eigensolver (VQE)</strong> as a hybrid quantum-classical algorithm that is promising for near-term quantum devices.</p></li>
 </ol>
-<p>First two of the above methods are examples of classical computation, while the third one utilises quantum computing. The HF is an approximate method, which is usually very inexpensive compared to the FCI, which is a lot closer to exact solution.</p>
+<p>These approaches differ in either formalism, or approximations to transform the problem into a minimization. The first two of the above methods are examples of classical computation. HF is an approximate method, which is usually very inexpensive compared to the FCI, which is a lot closer to exact solution. The third mehtod (VQE) utilises quantum computing, by classically optimising the parameters of the gates of a quantum circuit.</p>
 <p>By applying these methods to the same set of molecular systems and geometries, we can compare their outcome, and use the comparison evaluate the <strong>viability of quantum algorithms like VQE</strong> for practical molecular simulations, especially in the context of bond dissociation and chemical reactivity — tasks that are known to challenge classical methods.</p>
 <p>Accurate ground-state energy calculations are essential for predicting molecular behavior, and hybrid quantum-classical algorithms offer a potential pathway to overcome classical scaling limits in quantum chemistry.</p>
 </section>
 </section>
-<section id="theory">
-<h3>Theory<a class="headerlink" href="#theory" title="Link to this heading">#</a></h3>
-<p>Explain classical and quantum solution</p>
-<p>In this notebook, we investigate the ground-state electronic structure of dimers (molecules made up of two atoms) using both classical and quantum computational methods. Traditional quantum chemistry approaches such as Full Configuration Interaction (FCI) provide accurate results for small molecules, but quickly become too computationally expensive as the number of orbitals increases for larger molecules. To explore the potential of quantum computing in this domain, we employ the Variational Quantum Eigensolver (VQE) with a Unitary Coupled Cluster (UCCSD) ansatz, using Qiskit. By comparing the computed ground-state energies from HF, FCI, and VQE across different bond lengths, we assess the accuracy and feasibility of hybrid quantum-classical simulations for molecular electronic structure problems.</p>
+<section id="theory-classical-and-quantum-solutions">
+<h3>Theory — Classical and Quantum Solutions<a class="headerlink" href="#theory-classical-and-quantum-solutions" title="Link to this heading">#</a></h3>
+<p>Classical computational chemistry relies on solving the electronic Schrödinger equation using approximations tailored to trade accuracy for computational tractability. Among these:</p>
+<ul class="simple">
+<li><p><strong>Hartree-Fock (HF)</strong> is a mean-field method that approximates electron interactions in an averaged way. It is efficient but lacks correlation energy, which limits its accuracy especially for stretched bonds or strongly correlated systems.</p></li>
+<li><p><strong>Full Configuration Interaction (FCI)</strong> provides an exact solution within a given basis set by considering <strong>all possible electron configurations</strong>. It accounts for all electron correlation effects, making it a benchmark method for small systems. However, the computational cost of FCI scales <strong>exponentially</strong> with the number of orbitals, making it intractable for anything but very small molecules.</p></li>
+</ul>
+<p>Quantum computing offers a different paradigm. Instead of simulating all configurations explicitly, it uses <strong>quantum bits (qubits)</strong> to represent quantum states of the electronic orbitals directly. In particular, the <strong>Variational Quantum Eigensolver (VQE)</strong> is a hybrid algorithm well-suited for near-term quantum devices (also known as Noisy Intermediate-Scale Quantum — NISQ — devices). The VQE algorithm:</p>
+<ul class="simple">
+<li><p>Uses a <strong>parameterized quantum circuit</strong> (ansatz) to prepare a trial wavefunction.</p></li>
+<li><p>Measures the expectation value of the Hamiltonian with respect to this state. In this notebook, we simulate this measurement on a classical computer using Qiskit’s quantum simulators, which emulate how a real quantum device would behave.</p></li>
+<li><p>Optimizes the circuit parameters using a <strong>classical optimizer</strong> to minimize the energy.</p></li>
+</ul>
+<p>In this exercise, we implement VQE using the <strong>Unitary Coupled Cluster with Single and Double excitations (UCCSD)</strong> ansatz — a physically motivated approach that builds the trial wavefunction based on electronic excitations from a reference state. We use <strong>Qiskit</strong>, a widely adopted framework for quantum computing, to construct and simulate these quantum circuits.</p>
+<p>By comparing the computed ground-state energies from HF, FCI, and VQE across different bond lengths, we assess the accuracy and feasibility of hybrid quantum-classical simulations for molecular electronic structure problems.</p>
 </section>
 </section>
 <section id="computational-workflow">
 <h2>Computational workflow<a class="headerlink" href="#computational-workflow" title="Link to this heading">#</a></h2>
-<p>Following flowchart shows the computational workflow and illustrates how we map the problem of computing molecular energy to execution of a quantum circuit, and how it yields the ground state energy.</p>
+<p>The following flowchart shows the computational workflow and illustrates how we map the problem of computing molecular energy to execution of a quantum circuit, and how it yields the ground state energy.</p>
 <pre align="center" class="mermaid align-center">
         %%{
     init: {
@@ -455,7 +463,7 @@ end
     H --&gt; I{Convergence?}
     I -- No --&gt; J(Update Parameters via Classical Optimizer) --&gt; Circuit
     I -- Yes --&gt; K(Return Optimized Energy &amp; Parameters);
-    </pre><p>A brief introduction to what Hamiltonian is can be found <a class="reference internal" href="hamiltonian.html"><span class="std std-doc">here</span></a>.</p>
+    </pre><p>A brief introduction to the Hamiltonian can be found <a class="reference internal" href="hamiltonian.html"><span class="std std-doc">here</span></a>.</p>
 <section id="lih-as-example">
 <h3>LiH As example<a class="headerlink" href="#lih-as-example" title="Link to this heading">#</a></h3>
 <p>In the actual exercise, we use <strong>LiH</strong> as an example of a diatomic molecule.</p>
@@ -478,8 +486,8 @@ of <code class="docutils literal notranslate"><span class="pre">active</span> <s
 <li><p>We have two valence electrons, one from the outer shell of the lithium atom and one from hydrogen atom</p></li>
 <li><p>We assume that these are split evenly between spin up and down, i.e. one alpha and one beta electron</p></li>
 </ul>
-<p>Once we decided the active space, we need to map this problem to a qubit problem.</p>
-<p>In the exercose we show two mappers, giving us two different ways to convert the electronic structure of a molecule from a fermionic problem to a qubit problem.</p>
+<p>Once we have decided the active space, we need to map this problem to a qubit problem.</p>
+<p>In the exercise we show two mappers, giving us two different ways to convert the electronic structure of a molecule from a fermionic problem to a qubit problem.</p>
 <section id="jordan-wigner-mapper-simple-intuitive">
 <h4>Jordan-Wigner Mapper: Simple, intuitive<a class="headerlink" href="#jordan-wigner-mapper-simple-intuitive" title="Link to this heading">#</a></h4>
 <ul class="simple">
@@ -523,17 +531,39 @@ of <code class="docutils literal notranslate"><span class="pre">active</span> <s
 </section>
 <section id="bond-length-variation">
 <h2>Bond length variation<a class="headerlink" href="#bond-length-variation" title="Link to this heading">#</a></h2>
-<p>Some information here.</p>
-</section>
-<section id="conclusions">
-<h2>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h2>
-<p>Real world results and experience</p>
+<p>Finally, we will investigate how the energy varies over different bond lengths. The behaviour we expect is illustrated in the plot below.</p>
+<figure class="align-center">
+<img alt="_images/EnergyVsBondLength.jpg" src="_images/EnergyVsBondLength.jpg" />
+</figure>
+<p>Each diatomic molecule has an equilibrium bond length that minimises its potential energy. If we increase the bond length beyond this equilibrium value, the two atoms that make up our dimer get further apart, so the negative attractive force between them becomes less negative, approaching zero at very large bond lengths. On the other hand, if we push the atoms closer together so that the bond length is less than the equilibrium value, the electrons will begin to repel each other via a positive repulsive force at very small bond lengths. Therefore, by varying the bond length for small distances around the equilibrium value, and calculating the energy using both classical and quantum methods, we should be able to observe a minimum in energy at the equilibrium bond length.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
+<ul class="simple">
+<li><p>ICHEC QPFAS repository</p>
+<ul>
 <li><p><a class="reference external" href="https://www.ichec.ie/qpfas">https://www.ichec.ie/qpfas</a></p></li>
-</ol>
+</ul>
+</li>
+<li><p>Hartree-Fock approximation</p>
+<ul>
+<li><p>Sherrill, C. David. “An introduction to Hartree-Fock molecular orbital theory.” School of Chemistry and Biochemistry Georgia Institute of Technology <a class="reference external" href="https://vergil.chemistry.gatech.edu/static/content/hf-intro.pdf">https://vergil.chemistry.gatech.edu/static/content/hf-intro.pdf</a> (2000).</p></li>
+<li><p>Szabo, A., &amp; Ostlund, N. S. (2012). <em>Modern Quantum Chemistry: Introduction to Advanced Electronic Structure Theory</em>. Courier Corporation.</p></li>
+</ul>
+</li>
+<li><p>Full Configuration Interaction</p>
+<ul>
+<li><p><a class="reference external" href="https://vergil.chemistry.gatech.edu/static/content/ci.pdf">https://vergil.chemistry.gatech.edu/static/content/ci.pdf</a></p></li>
+<li><p>Helgaker, Trygve, Poul Jorgensen, and Jeppe Olsen. Molecular electronic-structure theory. John Wiley &amp; Sons (2013).</p></li>
+</ul>
+</li>
+<li><p>VQE</p>
+<ul>
+<li><p><a class="reference external" href="https://learning.quantum.ibm.com/tutorial/variational-quantum-eigensolver">https://learning.quantum.ibm.com/tutorial/variational-quantum-eigensolver</a></p></li>
+<li><p>Peruzzo, Alberto, et al. “A variational eigenvalue solver on a photonic quantum processor.” Nature communications 5.1 <a class="reference external" href="https://www.nature.com/articles/ncomms5213">https://www.nature.com/articles/ncomms5213</a> (2014).</p></li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 
@@ -607,7 +637,7 @@ of <code class="docutils literal notranslate"><span class="pre">active</span> <s
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-defintions">Quick defintions</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory-classical-and-quantum-solutions">Theory — Classical and Quantum Solutions</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-workflow">Computational workflow</a><ul class="nav section-nav flex-column">
@@ -621,7 +651,6 @@ of <code class="docutils literal notranslate"><span class="pre">active</span> <s
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bond-length-variation">Bond length variation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
