@@ -160,10 +160,14 @@ We want to compare our solution from the quantum algorithm (VQE) with the best c
 
 ## Bond length variation
 
-```{figure} ./images/EnergyVsBondLength
-:align: center
+Finally, we will investigate how the energy varies over different bond lengths. The behaviour we expect is illustrated in the plot below. 
 
+```{figure} ./images/EnergyVsBondLength.jpg
+:align: center
 ```
+
+Each diatomic molecule has an equilibrium bond length that minimises its potential energy. If we increase the bond length beyond this equilibrium value, the two atoms that make up our dimer get further apart, so the negative attractive force between them becomes less negative, approaching zero at very large bond lengths. On the other hand, if we push the atoms closer together so that the bond length is less than the equilibrium value, the electrons will begin to repel each other via a positive repulsive force at very small bond lengths. Therefore, by varying the bond length for small distances around the equilibrium value, and calculating the energy using both classical and quantum methods, we should be able to observe a minimum in energy at the equilibrium bond length.
+
 
 
 
