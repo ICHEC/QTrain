@@ -15,10 +15,10 @@ In this exercise, we investigate the **ground-state electronic structure** of **
 
 #### Quick defintions
 **Ground state energy**
-Some definition here
+The **ground state** of a quantum system, such as an atom or molecule, is the state with the lowest possible energy. The energy of this state is called the **ground state energy** or sometimes the zero-point energy.
 
 **Electronic structure**
-some definition here
+The arrangement of electrons in the orbitals of atoms is referred to as the electron configuration or **electronic structure**.
 
 
 The goal is to compare the accuracy and performance of different approaches:
