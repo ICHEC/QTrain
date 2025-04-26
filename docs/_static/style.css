@@ -83,6 +83,6 @@ table caption .footnote {
 }
   
 tr:hover {
-    /*background-color: #ffff00;*/
-    font-weight: bold;
+    background-color: #aaaaaa;
+    /*font-weight: bold;*/
 }
