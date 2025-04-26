@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/style.css?v=fb429c44" />
+    <link rel="stylesheet" type="text/css" href="_static/style.css?v=d75c4873" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -60,6 +60,14 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -336,7 +344,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links-and-material">Useful links and material</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-in-action">Quantum Computing in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workshop-summary">Workshop summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-workshop">The workshop</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
             </nav>
@@ -356,7 +366,6 @@ document.write(`
 <p><strong>advancing Supercomputing, AI, and quantum technologies in Europe</strong></p>
 <p>Supercomputing, artificial intelligence, and quantum computing are reshaping industries, research, and society at large. SCynergy 2025 brings together businesses, researchers, and policymakers to explore practical applications, share knowledge, and build collaborations that will shape the future of these technologies in Europe.</p>
 <p>Organised by Supercomputing Luxembourg, with the support of EuroHPC JU and Women in HPC, SCynergy provides a platform for experts and decision-makers to discuss how high-performance computing (HPC), AI, and quantum technologies can be applied effectively across sectors such as finance, space, healthtech, and industry.</p>
-</div>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
 <div class="sd-card-title sd-font-weight-bold docutils">
@@ -366,18 +375,104 @@ See the Official program at the website:</div>
 </ul>
 </div>
 </div>
+</div>
+<section id="quantum-computing-in-action">
+<h2>Quantum Computing in action<a class="headerlink" href="#quantum-computing-in-action" title="Link to this heading">#</a></h2>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">This page lists the necessary content for the session <strong>Quantum Computing in Action</strong> of the SCynergy 2025 workshop.</p>
+<p class="sd-card-text">The session covers the fundamentals of Quantum Computing and practical applications. It’s ideal for those looking to understand the current state and future potential of quantum technologies.</p>
+</div>
+</div>
+</section>
 <hr class="docutils" />
-<section id="useful-links-and-material">
-<h2>Useful links and material<a class="headerlink" href="#useful-links-and-material" title="Link to this heading">#</a></h2>
+<section id="workshop-summary">
+<h2>Workshop summary<a class="headerlink" href="#workshop-summary" title="Link to this heading">#</a></h2>
+<p>Following is the schedule of the session on <a class="reference external" href="https://events.eurocc.lu/scynergy-2025/content/trainings">April 28, 2025</a>.</p>
+<div class="pst-scrollable-table-container"><table class="table table-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>Time</p></th>
+<th class="head"><p>Content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>14:40 – 14:50</p></td>
+<td><p>Outline of the training session</p></td>
+</tr>
+<tr class="row-odd"><td><p>14:50 – 15:35</p></td>
+<td><p>Quantum Computing refresh (setup, tutorial, interactive, discussion oriented)</p></td>
+</tr>
+<tr class="row-even"><td><p>15:35 – 15:40</p></td>
+<td><p>Outline of exercises (walk-through &amp; hands-on)</p></td>
+</tr>
+<tr class="row-odd"><td><p>15:40 – 16:20</p></td>
+<td><p>Exercise 1 – Quantum Chemistry</p></td>
+</tr>
+<tr class="row-even"><td><p>16:20 – 16:50</p></td>
+<td><p>Break</p></td>
+</tr>
+<tr class="row-odd"><td><p>16:50 – 17:30</p></td>
+<td><p>Exercise 2 – QSVM4EO</p></td>
+</tr>
+<tr class="row-even"><td><p>17:30 – 18:10</p></td>
+<td><p>Exercise 3 – QUBO/QAOA</p></td>
+</tr>
+<tr class="row-odd"><td><p>18:10 – 18:20</p></td>
+<td><p>Wrap-up</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="the-workshop">
+<h2>The workshop<a class="headerlink" href="#the-workshop" title="Link to this heading">#</a></h2>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">The workshop tries to familiarise the participants with quantum computing through simple examples from three areas.</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><a class="reference internal" href="exercise1.html"><span class="std std-doc">Quantum chemistry: study of a molecule</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="exercise2.html"><span class="std std-doc">Quantum machine learning for earth observation</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="exercise3.html"><span class="std std-doc">Quantum optimization</span></a></p></li>
+</ol>
+<p class="sd-card-text">We will go through each of these during the session, where -</p>
+<pre align="center" class="mermaid align-center">
+        flowchart TD
+    A(We describe the problem)
+    B(We see how this problem maps to Quantum computing)
+    C(We see how the Quantum computing problem is solved)
+    A --&gt; B --&gt; C
+    </pre><p class="sd-card-text">We have a list of <a class="reference internal" href="prerequisite.html"><span class="std std-doc">prerequisites</span></a>, circulated before for every participant. However they aren’t mandatory for the session, merely listed incase one needs to refresh some basics.</p>
+</div>
+</div>
+<div class="admonition-computing-aspects admonition">
+<p class="admonition-title">Computing aspects</p>
+<ul>
+<li><p>All the content, including this page and the tutorial notebooks, is hosted in a public github repository</p>
 <ul class="simple">
-<li><p>(TBD) Specific items from <a class="github reference external" href="https://github.com/LuxProvide/PennyLane-GPU">LuxProvide/PennyLane-GPU</a></p></li>
-<li><p>All training material should be in Qiskit</p></li>
-<li><p>Topics for introduction</p></li>
+<li><p><a class="github reference external" href="https://github.com/ICHEC/QTrain">ICHEC/QTrain</a></p></li>
+<li><p>It should be downloaded using</p></li>
 </ul>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/ICHEC/QTrain.git</span></code></p>
+</li>
+<li><p>All training material uses <a class="reference external" href="https://www.ibm.com/quantum/qiskit">Qiskit</a> package.</p></li>
+<li><p>The primary portal for training is jupyterlab server <a class="reference external" href="http://jlab.lxp.lu">jlab.lxp.lu</a> Hosted by LuxProvide.</p></li>
+</ul>
+</div>
+<div class="information admonition">
+<p class="admonition-title">Steps on jlab</p>
+<p>After logging into <a class="reference external" href="http://jlab.lxp.lu">jlab.lxp.lu</a>, we need to load the following modules in order -</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Qiskit/1.4.1-foss-2024a</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matplotlib/3.9.2-gfbf-2024a</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Seaborn/0.13.2-gfbf-2024a</span></code></p></li>
+</ol>
+<p>You should open any notebooks/terminals <strong>after</strong> loading the above modules on jlab.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>closing jupyter lab does not stop the job on the HPC node. One needs to release the allocation
-later using <code class="docutils literal notranslate"><span class="pre">scancel</span></code>.</p>
+later using <code class="docutils literal notranslate"><span class="pre">scancel</span></code> once the session is over.</p>
 </div>
 </section>
 <section id="acknowledgements">
@@ -453,7 +548,9 @@ later using <code class="docutils literal notranslate"><span class="pre">scancel
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links-and-material">Useful links and material</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing-in-action">Quantum Computing in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workshop-summary">Workshop summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-workshop">The workshop</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
   </nav></div>
