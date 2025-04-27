@@ -64,47 +64,11 @@ By comparing the computed ground-state energies from HF, FCI, and VQE across dif
 
 The following flowchart shows the computational workflow and illustrates how we map the problem of computing molecular energy to execution of a quantum circuit, and how it yields the ground state energy.
 
-```{mermaid}
+```{figure} ./images/flowchart-ex1.svg
 :align: center
-%%{
-    init: {
-        'theme': 'base',
-        'themeVariables': {
-        'primaryColor': '#BB2528',
-        'primaryTextColor': '#fff',
-        'primaryBorderColor': '#7C0000',
-        'lineColor': '#F8B229',
-        'secondaryColor': '#006100',
-        'tertiaryColor': '#fff'
-        }
-    }}%%
-graph TD
-subgraph Problem
-direction LR;
-    A((Define Molecule))
-    A --> B(Select active orbitals & electrons)
-end
-    
-subgraph Mapping
-direction LR;
-    C(Choose Qubit Mapping: Jordan-Wigner/Parity)
-    C --> D(Select Ansatz: UCCSD, PUCCD, etc. This defines circuit structure.)
-end
-    Problem --> Mapping
-    
-subgraph Circuit
-direction LR;
-    E(Initialize Parameters - all zero)
-    E --> F(Initial state = Hartree-Fock state)
-    F --> G(Run Quantum Circuit & Measure)
-end
-    Mapping --> Circuit
-    
-    Circuit --> H(Compute Energy i.e. Expectation Value of Hamiltonian)
-    H --> I{Convergence?}
-    I -- No --> J(Update Parameters via Classical Optimizer) --> Circuit
-    I -- Yes --> K(Return Optimized Energy & Parameters);
+:width: 100%
 ```
+
 
 A brief introduction to the Hamiltonian can be found [here](./hamiltonian.md).
 

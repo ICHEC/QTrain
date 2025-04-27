@@ -57,15 +57,12 @@ The workshop tries to familiarise the participants with quantum computing throug
 
 We will go through each of these during the session, where -
 
-```{mermaid}
+```{image} ./images/qc-flow.svg
 :align: center
+:width: 100%
 
-flowchart TD
-    A(We describe the problem)
-    B(We see how this problem maps to Quantum computing)
-    C(We see how the Quantum computing problem is solved)
-    A --> B --> C
 ```
+
 We have a list of [prerequisites](./prerequisite.md), circulated before for every participant. However they aren't mandatory for the session, merely listed incase one needs to refresh some basics.
 ``````
 
