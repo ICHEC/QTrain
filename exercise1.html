@@ -60,14 +60,6 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
-    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-    <script type="module">
-import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
-window.addEventListener("load", () => mermaid.run());
-</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'exercise1';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -429,46 +421,11 @@ document.write(`
 <section id="computational-workflow">
 <h2>Computational workflow<a class="headerlink" href="#computational-workflow" title="Link to this heading">#</a></h2>
 <p>The following flowchart shows the computational workflow and illustrates how we map the problem of computing molecular energy to execution of a quantum circuit, and how it yields the ground state energy.</p>
-<pre align="center" class="mermaid align-center">
-        %%{
-    init: {
-        'theme': 'base',
-        'themeVariables': {
-        'primaryColor': '#BB2528',
-        'primaryTextColor': '#fff',
-        'primaryBorderColor': '#7C0000',
-        'lineColor': '#F8B229',
-        'secondaryColor': '#006100',
-        'tertiaryColor': '#fff'
-        }
-    }}%%
-graph TD
-subgraph Problem
-direction LR;
-    A((Define Molecule))
-    A --&gt; B(Select active orbitals &amp; electrons)
-end
-    
-subgraph Mapping
-direction LR;
-    C(Choose Qubit Mapping: Jordan-Wigner/Parity)
-    C --&gt; D(Select Ansatz: UCCSD, PUCCD, etc. This defines circuit structure.)
-end
-    Problem --&gt; Mapping
-    
-subgraph Circuit
-direction LR;
-    E(Initialize Parameters - all zero)
-    E --&gt; F(Initial state = Hartree-Fock state)
-    F --&gt; G(Run Quantum Circuit &amp; Measure)
-end
-    Mapping --&gt; Circuit
-    
-    Circuit --&gt; H(Compute Energy i.e. Expectation Value of Hamiltonian)
-    H --&gt; I{Convergence?}
-    I -- No --&gt; J(Update Parameters via Classical Optimizer) --&gt; Circuit
-    I -- Yes --&gt; K(Return Optimized Energy &amp; Parameters);
-    </pre><p>A brief introduction to the Hamiltonian can be found <a class="reference internal" href="hamiltonian.html"><span class="std std-doc">here</span></a>.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="images/flowchart-ex1.svg"><img alt="images/flowchart-ex1.svg" src="images/flowchart-ex1.svg" style="width: 100%;" />
+</a>
+</figure>
+<p>A brief introduction to the Hamiltonian can be found <a class="reference internal" href="hamiltonian.html"><span class="std std-doc">here</span></a>.</p>
 <section id="lih-as-example">
 <h3>LiH As example<a class="headerlink" href="#lih-as-example" title="Link to this heading">#</a></h3>
 <p>In the actual exercise, we use <strong>LiH</strong> as an example of a diatomic molecule.</p>
