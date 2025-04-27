@@ -14,18 +14,26 @@ This exercise provides a very small, illustrative prototype of what one does in 
 In this exercise, we investigate the **ground-state electronic structure** of **diatomic molecules (dimers)** using a combination of classical and quantum computational methods.Specifically, we calculate the ground-state energy of several small molecules across a range of bond lengths. These calculations help us understand how the **electronic structure evolves with molecular geometry**, which is important for studying chemical bonding and molecular stability.
 
 #### Quick defintions
-**Ground state energy**
+
+```{admonition} Ground state energy
+:class: information
+
 The **ground state** of a quantum system, such as an atom or molecule, is the state with the lowest possible energy. The energy of this state is called the **ground state energy** or sometimes the zero-point energy.
+```
 
-**Electronic structure**
+```{admonition} Electronic structure
+:class: information
+
 The arrangement of electrons in the orbitals of atoms is referred to as the electron configuration or **electronic structure**.
-
+```
 
 The goal is to compare the accuracy and performance of different approaches:
 
-  1. **Hartree-Fock (HF)** as a mean-field classical approximation,
-  2. **Full Configuration Interaction (FCI)** as an exact (but expensive) classical method,
-  3. **Variational Quantum Eigensolver (VQE)** as a hybrid quantum-classical algorithm that is promising for near-term quantum devices.
+1. **Hartree-Fock (HF)** as a mean-field classical approximation,
+
+2. **Full Configuration Interaction (FCI)** as an exact (but expensive) classical method,
+
+3. **Variational Quantum Eigensolver (VQE)** as a hybrid quantum-classical algorithm that is promising for near-term quantum devices.
 
 These approaches differ in either formalism, or approximations to transform the problem into a minimization. The first two of the above methods are examples of classical computation. HF is an approximate method, which is usually very inexpensive compared to the FCI, which is a lot closer to exact solution. The third mehtod (VQE) utilises quantum computing, by classically optimising the parameters of the gates of a quantum circuit.
 
@@ -169,7 +177,24 @@ Finally, we will investigate how the energy varies over different bond lengths. 
 Each diatomic molecule has an equilibrium bond length that minimises its potential energy. If we increase the bond length beyond this equilibrium value, the two atoms that make up our dimer get further apart, so the negative attractive force between them becomes less negative, approaching zero at very large bond lengths. On the other hand, if we push the atoms closer together so that the bond length is less than the equilibrium value, the electrons will begin to repel each other via a positive repulsive force at very small bond lengths. Therefore, by varying the bond length for small distances around the equilibrium value, and calculating the energy using both classical and quantum methods, we should be able to observe a minimum in energy at the equilibrium bond length.
 
 
+```{admonition} Tutorial notebook
+:class: tip
 
+The tutorial notebook is in folder `exercise1` of the [QTrain](https://github.com/ICHEC/QTrain/tree/main) repository.
+
+- Notebook link: https://github.com/ICHEC/QTrain/blob/main/exercise1/moleculeVQE.ipynb
+```
+
+
+## Acknowledgements
+
+We extend our gratitude to the Irish Centre for High-End Computing (ICHEC) and University of Galway for providing computing and for all-encompassing invaluable support. This project was funded by the **EuroHPC JU** under **grant agreement No 951732** and Ireland.
+
+``````{card}
+```{image} ../logos/logos.png
+:width: 100%
+```
+``````
 
 ## References
 

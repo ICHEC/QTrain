@@ -37,14 +37,29 @@ Below is a list of topic one should touch upon, or get familiar with before the 
 
 - [Bits to Qubits](https://ichec.github.io/ct4106/lecture-03/from-bits-to-qubits.html)
 
-## Hamiltonian - introduction (missing)
-- [Youtube](https://www.youtube.com/watch?v=BusR0WQ_Gxo)
-- Classical SVM (?, missing)
 
-- Live tutorial
-- Qiskit introduction (adapt from Pennylane one)
+
+## Hamiltonian
+
+```{admonition} simple description
+:class: tip
+
+Hamiltonian, in physics represents a function denoting the system's energy. In very simple terms, it is expressed as sum of all sources of energy of a given system. For example, for a single particle it's hamiltonian is sum of it's kinetic and potential energy.
+
+- [Hamiltonian, a quick intro](https://www.youtube.com/watch?v=BusR0WQ_Gxo)
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/BusR0WQ_Gxo?si=6FUtVxgQCcfb6Rzn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+See the page of [Hamiltonian](./hamiltonian.md) for a bit more detailed description of the term.
+
+```
+
+## Further exploration
+
+Below is a list of topics or keywords to explore -
+
+- Classical Suppoer Vector Machines (SVM)
+- Qiskit introduction
 - Define and print basic circuits manually
 - Device simulators (ideal vs noisy vs fake)
-- Run simple circuit examples (missing?)
-- Basic end-to-end example
-- Grover?, but simpler/shorter, more showing the different stages of the end-to-end pipeline (data preprocessing, quantum computation, result interpretation)
+- Run simple circuit examples
+- Grover Algorithm, Shor's Algorithm

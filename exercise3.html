@@ -334,13 +334,41 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-optimization">Portfolio Optimization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-data">Create the Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-terms">Define Terms</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classial-solution">Classial Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-solution">Quantum Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#with-constraint">With constraint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quantum Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-unconstrained-binary-optimization-qubo">Quadratic Unconstrained Binary Optimization (QUBO)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-approximate-optimization-algorithm-qaoa">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-problem-example">Quadratic Problem example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-binary-optimization-problem-example">Linear Binary Optimization Problem example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-cut-definition"><strong>Graph Cut Definition</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-definition"><strong>Formal Definition</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-cut-problem-formulation"><strong>Max-Cut Problem Formulation</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation"><strong>Mathematical Formulation</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reformulation-in-terms-of-the-ising-model"><strong>Reformulation in Terms of the Ising Model</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-unconstrained-binary-optimization-qubo-formulation"><strong>Quadratic Unconstrained Binary Optimization (QUBO) Formulation</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizing-portfolios-with-qaoa">Optimizing portfolios with QAOA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem">The problem</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-data">Create the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-terms">Define Terms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classial-solution">Classial Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-solution">Quantum Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-constraint">With constraint</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quantum Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -354,10 +382,200 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="quantum-optimization">
 <h1>3. Quantum Optimization<a class="headerlink" href="#quantum-optimization" title="Link to this heading">#</a></h1>
-<section id="portfolio-optimization">
-<h2>Portfolio Optimization<a class="headerlink" href="#portfolio-optimization" title="Link to this heading">#</a></h2>
+<section id="quadratic-unconstrained-binary-optimization-qubo">
+<h2>Quadratic Unconstrained Binary Optimization (QUBO)<a class="headerlink" href="#quadratic-unconstrained-binary-optimization-qubo" title="Link to this heading">#</a></h2>
+<p>This section provides an overview of the essential tools required for working with QUBO formulations with Qiskit. We will be exploring small examples of classical optimization problems.</p>
+<p>Quantum computing presents promising solutions for various optimization problems, particularly <strong>Quadratic Unconstrained Binary Optimization (QUBO)</strong> problems. Solving a QUBO is mathematically equivalent to determining the ground state of an associated Ising Hamiltonian.</p>
+<p>This problem is crucial not only in optimization but also in fields such as quantum chemistry and physics. The transformation involves converting binary variables (values in {0,1}) into spin variables (values in {-1,+1}), which can then be expressed in terms of Pauli Z matrices, ultimately forming an Ising Hamiltonian. More details on this conversion process can be found in [1].</p>
+<p>QUBO is a mathematical formulation that can express a variety of combinatorial optimization problems [2]. QUBO solvers can therefore address many problems, once expressed in this form.</p>
+<div class="information admonition">
+<p class="admonition-title">QUBO problem definition:</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Minimize <span class="math notranslate nohighlight">\(y = {\bf x}^t {\bf Q} {\bf x}\)</span></p>
+</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> is a vector of binary decision variables.</p>
+</div>
+<p>Note that linear (binary) objective functions are expressed with <span class="math notranslate nohighlight">\(Q\)</span> as a diagonal matrix, because <span class="math notranslate nohighlight">\(x_j^2 = x_j\)</span>.</p>
+<section id="quantum-approximate-optimization-algorithm-qaoa">
+<h3>Quantum Approximate Optimization Algorithm (QAOA)<a class="headerlink" href="#quantum-approximate-optimization-algorithm-qaoa" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>QAOA is a discrete version of <strong>Adiabatic Quantum Computing</strong></p></li>
+<li><p>In a nutshell: <strong>Adiabatic quantum computing</strong> involves starting with a simple Hamiltonian whose ground state can be easily prepared, evolving the system slowly to keep it in the ground state, i.e., <strong>Adiabatic evolution</strong>, and then measuring the result when the Hamiltonian’s ground state represents the solution to the considered problem.</p></li>
+<li><p><strong>Adiabatic Quantum Computing</strong> relies on a time-dependent Hamiltonian inducing continuous transformation of the state</p></li>
+<li><p>But we can approximate this continuous evolution with <strong>discrete</strong> changes which is called <strong>Trotterization</strong></p></li>
+<li><p>So in QAOA, we will apply a sequence of discrete steps represented by quantum gates as following:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+|\beta,\gamma\rangle = e^{i\beta_p H_0}e^{i\gamma_p H_1} ... e^{i\beta_2 H_0} e^{i\gamma_2 H_1} e^{i\beta_1 H_0} e^{i\gamma_1H_1} |\psi_0\rangle
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(H_0\)</span> an initial and easy to prepare Hamiltonian, <span class="math notranslate nohighlight">\(H_1\)</span> the target Hamiltonian whose ground state encodes the solution to the problem of interest and <span class="math notranslate nohighlight">\(\beta_p\)</span>, <span class="math notranslate nohighlight">\(\gamma_p\)</span> scalarization values representing now the variables of our problem. We want to find <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\gamma\)</span> that minimize :</p>
+<div class="math notranslate nohighlight">
+\[
+\min\limits_{\beta_p,\gamma_p} \langle \beta,\gamma|H_1|\beta,\gamma \rangle
+\]</div>
+</section>
+<section id="quadratic-problem-example">
+<h3>Quadratic Problem example<a class="headerlink" href="#quadratic-problem-example" title="Link to this heading">#</a></h3>
+<p>In this example, we will solve an instance of a Quadratic Assignment Problem (QAP).
+In this problem, there is <span class="math notranslate nohighlight">\(n\)</span> facilities and <span class="math notranslate nohighlight">\(n\)</span> locations.
+Locations are distant to one another, specified as a matrix <span class="math notranslate nohighlight">\((D_{ij})\)</span>.
+Also, facilities are connected via a flow matrix <span class="math notranslate nohighlight">\((F_{ij})\)</span>.</p>
+<p>Decision variable <span class="math notranslate nohighlight">\(x_{ij} = 1\)</span> if facility <span class="math notranslate nohighlight">\(i\)</span> is assigned to location <span class="math notranslate nohighlight">\(j\)</span>.</p>
+<p>The objective is to find an assignment of facilities to locations, in order to minimize the weighted flow.</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{n}\sum_{j=1}^{n}\sum_{k=1}^{n}\sum_{l=1}^{n} F_{ij} D_{kl} x_{ik} x_{jl}
+\]</div>
+<p>with:</p>
+<p><span class="math notranslate nohighlight">\(\sum_{i=1}^{n} x_{ij} = 1\)</span> and <span class="math notranslate nohighlight">\(j=1,n\)</span>, to express that a location hosts one facility</p>
+<p><span class="math notranslate nohighlight">\(\sum_{j=1}^{n} x_{ij} = 1\)</span> and <span class="math notranslate nohighlight">\(i=1,n\)</span>, to express that a facility sits a one location <span class="math notranslate nohighlight">\(x_{ij} \in {0,1}\)</span></p>
+<p>For example, let’s consider a Flow matrix:
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 5 &amp; 2\\
+5 &amp; 0 &amp; 3\\
+2 &amp; 3 &amp; 0
+\end{pmatrix}\)</span>
+and a Distance matrix:
+<span class="math notranslate nohighlight">\(\begin{pmatrix}
+0 &amp; 8 &amp; 15\\
+8 &amp; 0 &amp; 13\\
+15 &amp; 13 &amp; 0
+\end{pmatrix}\)</span></p>
+<p>Rewriting the assignment variables to use a single digit subscript:</p>
+<div class="math notranslate nohighlight">
+\[(x_{11}, x_{12}, x_{13}, x_{21}, x_{22}, x_{23}, x_{31}, x_{32}, x_{33}) = (x_1, x_2, x_3, x_4, x_5, x_6, x_7,x_8, x_9)\]</div>
+<p>The QAP becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{min} x_0 = 80 x_1 x_5 + 150 x_1 x_6 + 32 x_1 x_8 + 60 x_1 x_9 + 80 x_2 x_4 + 130 x_2 x_6 + 60 x_2 x_7 + 52 x_2 x_9 +
+150 x_3 x_4 + 130 x_3 x_5 + 60 x_3 x_7 + 52 x_3 x_8 + 48 x_4 x_8 + 90 x_4 x_9 + 78 x_5 x_9 + 78 x_6 x_8
+\]</div>
+<p>subject to the assignment constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+x_1 + x_2 + x_3 = 1, x_4 + x_5 + x_6 = 1, x_7 + x_8 + x_9 = 1\\
+x_1 + x_4 + x_7 = 1, x_2 + x_5 + x_8 = 1, x_3 + x_6 + x_9 = 1
+\end{split}\]</div>
+<p>Because QUBO stands for unconstrained, we should remove the assignment constraints.</p>
+<p>We can do so by converting the constraints into penalty terms, added to the objective function.</p>
+<p>The penalty terms are the constraint equations, squared with a penalty factor <span class="math notranslate nohighlight">\(P\)</span>, sufficiently high to prevent constraints from being violated:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\text{min}~x_0 
+&amp;=80 x_1 x_5 + 150 x_1 x_6 + 32 x_1 x_8 + 60 x_1 x_9 + 80 x_2 x_4 + 130 x_2 x_6 + 60 x_2 x_7 + 52 x_2 x_9 \\
+&amp;+ 150 x_3 x_4 + 130 x_3 x_5 + 60 x_3 x_7 + 52 x_3 x_8 + 48 x_4 x_8 + 90 x_4 x_9 + 78 x_5 x_9 + 78 x_6 x_8 \\
+&amp;+ P (x_1 + x_2 + x_3 -1)^2 + P (x_4 + x_5 + x_6 -1)^2 + P (x_7 + x_8 + x_9 -1)^2 \\
+&amp;+ P (x_1 + x_4 + x_7 -1)^2 + P (x_2 + x_5 + x_8 -1)^2 + P (x_3 + x_6 + x_9 -1)^2
+\end{align*}\]</div>
+<p>But, Qiskit Algorithms library allows us to define the QUBO directly with the constraints.</p>
+</section>
+<section id="linear-binary-optimization-problem-example">
+<h3>Linear Binary Optimization Problem example<a class="headerlink" href="#linear-binary-optimization-problem-example" title="Link to this heading">#</a></h3>
+<p>In this example, we will solve an instance of a Linear Binary Optimization problem: the <strong>Knapsack</strong> problem.</p>
+<p>As a reminder, this problem deals with a list of objects <span class="math notranslate nohighlight">\(i = 1, ..., n\)</span>, each with a weight <span class="math notranslate nohighlight">\(W_i\)</span> and a value <span class="math notranslate nohighlight">\(C_i\)</span>.
+The objective is to select a subset of objects, such that the total weight is less or equal to a limit W, yet maximizing the total value.
+Let the binary variables <span class="math notranslate nohighlight">\(x_i\)</span> indicate if object <span class="math notranslate nohighlight">\(i\)</span> is selected (<span class="math notranslate nohighlight">\(x_i = 1\)</span>).</p>
+<p>We wish to minimize:</p>
+<div class="math notranslate nohighlight">
+\[-\sum_{i=1}^{n} C_i x_i\]</div>
+<p>with the constraint:</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i=1}^{n} W_i x_i \leq W, \quad x_i \in {0,1} \]</div>
+<p>For example, let’s consider the following instance: Minimize: <span class="math notranslate nohighlight">\(-5 x_1 - 3 x_2 - 4 x_3\)</span>
+Under the constraint: <span class="math notranslate nohighlight">\(3 x_0 + x_2 + x_3 \leq 3\)</span></p>
+<p>This problem does not fit the QUBO formulation.</p>
+<p>To express it in a QUBO form, we:</p>
+<ul class="simple">
+<li><p>rewrite the inequality constraint as an equality</p></li>
+<li><p>insert this equality constraint as a penalty term (as above)</p></li>
+</ul>
+<p>To change the inequality, we add a slack binary variable(s). In this case, because we need to reach 3, we need to add 2 binary slack variables:</p>
+<p><span class="math notranslate nohighlight">\(3 x_1 + x_2 + x_3 \leq 3 \Leftrightarrow  3 x_1 + x_2 + x_3 + y_1 + 2 y_2 = 3\)</span></p>
+<p>To remove the constraint, we add the constraint expression to the objective function, with a penalty factor <span class="math notranslate nohighlight">\(P\)</span> that avoids violating the constraint:</p>
+<p>Minimize: <span class="math notranslate nohighlight">\(-5 x_1 - 3 x_2 - 4 x_3 + P (3 x_1 + x_2 + x_3 + y_1 + 2 y_2 - 3)^2\)</span></p>
+<p>The original objective function range is in <span class="math notranslate nohighlight">\([-12, 0]\)</span>, so any violation of the constraint must result in a value greater than the maximum value, let’s choose <span class="math notranslate nohighlight">\(P = 13\)</span>.</p>
+</section>
+<section id="graph-cut-definition">
+<h3><strong>Graph Cut Definition</strong><a class="headerlink" href="#graph-cut-definition" title="Link to this heading">#</a></h3>
+<p>A <strong>graph cut</strong> is a fundamental concept in graph theory that refers to a <strong>partition of the vertices</strong> of a graph into two disjoint subsets, separating the graph into two parts. The set of edges that have one endpoint in each subset is called the <strong>cut set</strong>, and the goal of different graph cut problems is often to minimize or maximize the number (or total weight) of these edges.</p>
+<section id="formal-definition">
+<h4><strong>Formal Definition</strong><a class="headerlink" href="#formal-definition" title="Link to this heading">#</a></h4>
+<p>Given an <strong>undirected graph</strong> <span class="math notranslate nohighlight">\( G = (V, E) \)</span>, where <span class="math notranslate nohighlight">\( V \)</span> is the set of vertices and <span class="math notranslate nohighlight">\( E \)</span> is the set of edges, a <strong>cut</strong> is defined by a partition of <span class="math notranslate nohighlight">\( V \)</span> into two disjoint subsets <span class="math notranslate nohighlight">\( S \)</span> and <span class="math notranslate nohighlight">\( \bar{S} \)</span> such that:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( S \cup \bar{S} = V \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( S \cap \bar{S} = \emptyset \)</span></p></li>
+</ul>
+<p>The <strong>cut-set</strong> consists of all edges that have <strong>one endpoint in <span class="math notranslate nohighlight">\( S \)</span> and the other in <span class="math notranslate nohighlight">\( \bar{S} \)</span></strong>:
+$<span class="math notranslate nohighlight">\(
+\text{Cut}(S, \bar{S}) = \{ (u, v) \in E \mid u \in S, v \in \bar{S} \}
+\)</span>$</p>
+</section>
+</section>
+<section id="max-cut-problem-formulation">
+<h3><strong>Max-Cut Problem Formulation</strong><a class="headerlink" href="#max-cut-problem-formulation" title="Link to this heading">#</a></h3>
+<p>The <strong>Max-Cut problem</strong> is a fundamental problem in graph theory and combinatorial optimization. Given an <strong>undirected graph</strong> <span class="math notranslate nohighlight">\( G = (V, E) \)</span>, where <span class="math notranslate nohighlight">\( V \)</span> is the set of vertices and <span class="math notranslate nohighlight">\( E \)</span> is the set of edges, the goal is to find a partition of the vertex set into two subsets <span class="math notranslate nohighlight">\( S \)</span> and <span class="math notranslate nohighlight">\( \bar{S} \)</span> that <strong>maximizes the number (or total weight) of edges</strong> that cross between the two subsets.</p>
+<section id="mathematical-formulation">
+<h4><strong>Mathematical Formulation</strong><a class="headerlink" href="#mathematical-formulation" title="Link to this heading">#</a></h4>
+<p>Let:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( x_i \)</span> be a binary decision variable for each vertex <span class="math notranslate nohighlight">\( i \)</span>, where:
+$<span class="math notranslate nohighlight">\(
+x_i =
+\begin{cases}
+1, &amp; \text{if node } i \text{ is in subset } S \\
+0, &amp; \text{if node } i \text{ is in subset } \bar{S}
+\end{cases}
+\)</span>$</p></li>
+<li><p>Each edge <span class="math notranslate nohighlight">\( (i, j) \in E \)</span> contributes to the cut <strong>if and only if</strong> its endpoints are in different subsets, meaning <span class="math notranslate nohighlight">\( x_i \neq x_j \)</span>.</p></li>
+</ul>
+<p>The <strong>Max-Cut objective function</strong> is given by:
+$<span class="math notranslate nohighlight">\(
+\max \sum_{(i, j) \in E} w_{ij} (x_i \oplus x_j)
+\)</span>$
+where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( w_{ij} \)</span> is the weight of edge <span class="math notranslate nohighlight">\( (i, j) \)</span> (assumed 1 in the unweighted case).</p></li>
+<li><p><span class="math notranslate nohighlight">\( \oplus \)</span> represents the <strong>XOR</strong> operation, which equals 1 if <span class="math notranslate nohighlight">\( x_i \neq x_j \)</span> (i.e., the edge is cut).</p></li>
+</ul>
+</section>
+</section>
+<section id="reformulation-in-terms-of-the-ising-model">
+<h3><strong>Reformulation in Terms of the Ising Model</strong><a class="headerlink" href="#reformulation-in-terms-of-the-ising-model" title="Link to this heading">#</a></h3>
+<p>To solve the Max-Cut problem using <strong>quantum optimization</strong>, we express it in terms of spin variables:</p>
+<ul class="simple">
+<li><p>Define <span class="math notranslate nohighlight">\( s_i \)</span> as a spin variable taking values in <span class="math notranslate nohighlight">\( \{-1, +1\} \)</span>, where:
+$<span class="math notranslate nohighlight">\(
+s_i = 2x_i - 1
+\)</span>$</p></li>
+<li><p>The Max-Cut objective function can then be rewritten as:
+$<span class="math notranslate nohighlight">\(
+\max \frac{1}{2} \sum_{(i, j) \in E} w_{ij} (1 - s_i s_j)
+\)</span><span class="math notranslate nohighlight">\(
+Since minimizing \)</span> s_i s_j $ encourages opposite spins (partitioning nodes into different sets), this formulation maps directly to the <strong>Ising model</strong>.</p></li>
+</ul>
+</section>
+<section id="quadratic-unconstrained-binary-optimization-qubo-formulation">
+<h3><strong>Quadratic Unconstrained Binary Optimization (QUBO) Formulation</strong><a class="headerlink" href="#quadratic-unconstrained-binary-optimization-qubo-formulation" title="Link to this heading">#</a></h3>
+<p>Since QUBO problems use binary variables <span class="math notranslate nohighlight">\( x_i \in \{0,1\} \)</span>, we express Max-Cut as:
+$<span class="math notranslate nohighlight">\(
+\max \sum_{(i, j) \in E} w_{ij} (x_i + x_j - 2x_i x_j)
+\)</span>$
+which is a <strong>quadratic</strong> function of binary variables.</p>
+<p>This formulation enables solving Max-Cut using classical and quantum optimization techniques, such as <strong>QAOA (Quantum Approximate Optimization Algorithm)</strong> and <strong>Simulated Annealing</strong>.</p>
+</section>
+</section>
+<section id="optimizing-portfolios-with-qaoa">
+<h2>Optimizing portfolios with QAOA<a class="headerlink" href="#optimizing-portfolios-with-qaoa" title="Link to this heading">#</a></h2>
 <p>Adapted from:</p>
 <p><a class="reference external" href="https://qiskit-community.github.io/qiskit-finance/tutorials/01_portfolio_optimization.html">https://qiskit-community.github.io/qiskit-finance/tutorials/01_portfolio_optimization.html</a></p>
+<section id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h3>
+<p>Here we given an example of how the QAOA algorithm can be used to solve financial portfolio optimization problems.</p>
+<section id="the-problem">
+<h4>The problem<a class="headerlink" href="#the-problem" title="Link to this heading">#</a></h4>
 <p>We are given a set of <span class="math notranslate nohighlight">\(n\)</span> assets, labeled as <span class="math notranslate nohighlight">\(\{1, 2, ..., n\}\)</span>, each with an expected return <span class="math notranslate nohighlight">\(\mu_i\)</span>.
 In this simplified model, we have a binary choice: either choose an asset of do not.
 We wish to find the maximum return:</p>
@@ -378,15 +596,22 @@ We wish to find the maximum return:</p>
 <li><p>For <span class="math notranslate nohighlight">\(q&gt;0\)</span> we take volatility into account</p></li>
 <li><p>For <span class="math notranslate nohighlight">\(q &gt;&gt;0\)</span> we pick the assets with low variance and negative covariance</p></li>
 </ul>
-<p>For more on the portfolio model see <a class="reference external" href="https://en.wikipedia.org/wiki/Modern_portfolio_theory">here</a>.</p>
+<p>If <span class="math notranslate nohighlight">\(p_i^{(t)}\)</span> is the price at time <span class="math notranslate nohighlight">\(t\)</span> for asset <span class="math notranslate nohighlight">\(i\)</span> then the return on investiment (ROI) at time <span class="math notranslate nohighlight">\(t\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+\left(p_i^{(t+1)} - p_i^{(t)} \right) \over p_i^{(t)}
+\]</div>
+<p>To compute <span class="math notranslate nohighlight">\(\mu_i\)</span> we calculate the mean ROI over the whole period and to compute <span class="math notranslate nohighlight">\(\sigma_{ij}\)</span> we calculate the covariance between difference the ROIs of different assets over the whole period.</p>
+<p>For more on the portfolio model, see <a class="reference external" href="https://en.wikipedia.org/wiki/Modern_portfolio_theory">here</a>.</p>
+</section>
 </section>
 <section id="create-the-data">
-<h2>Create the Data<a class="headerlink" href="#create-the-data" title="Link to this heading">#</a></h2>
+<h3>Create the Data<a class="headerlink" href="#create-the-data" title="Link to this heading">#</a></h3>
 <p>We will use randomly generated data using <code class="docutils literal notranslate"><span class="pre">RandomDataProvider</span></code>.
 The number of assets <code class="docutils literal notranslate"><span class="pre">num_assets</span></code> will equal the number of qubits required in the quantum computation.</p>
 </section>
 <section id="define-terms">
-<h2>Define Terms<a class="headerlink" href="#define-terms" title="Link to this heading">#</a></h2>
+<h3>Define Terms<a class="headerlink" href="#define-terms" title="Link to this heading">#</a></h3>
 <p>If <span class="math notranslate nohighlight">\(p_i^{(t)}\)</span> is the price at time <span class="math notranslate nohighlight">\(t\)</span> for asset <span class="math notranslate nohighlight">\(i\)</span> then define <span class="math notranslate nohighlight">\(d_i^{(t)}\)</span> as the return at time <span class="math notranslate nohighlight">\(t\)</span></p>
 <div class="math notranslate nohighlight">
 \[ d_i^{(t)} = \frac{p_i^{(t+1)} - p_i^{(t)}}{p_i^{(t)}} \]</div>
@@ -399,12 +624,14 @@ The number of assets <code class="docutils literal notranslate"><span class="pre
 <p>where <span class="math notranslate nohighlight">\(T\)</span> is the total number of timesteps.</p>
 </section>
 <section id="classial-solution">
-<h2>Classial Solution<a class="headerlink" href="#classial-solution" title="Link to this heading">#</a></h2>
+<h3>Classial Solution<a class="headerlink" href="#classial-solution" title="Link to this heading">#</a></h3>
 <p>Here we minimize the cost function by seacrhing through all the combinations of <span class="math notranslate nohighlight">\(\{x_i\}\)</span>. This scales as <span class="math notranslate nohighlight">\(2^{n}\)</span>.</p>
 </section>
 <section id="quantum-solution">
-<h2>Quantum Solution<a class="headerlink" href="#quantum-solution" title="Link to this heading">#</a></h2>
-<p>To Solve on a QC, we change to <span class="math notranslate nohighlight">\(x_i=(1-z_i)/2\)</span></p>
+<h3>Quantum Solution<a class="headerlink" href="#quantum-solution" title="Link to this heading">#</a></h3>
+<p>To map the problem to quantum computing, we change the variables to <span class="math notranslate nohighlight">\(x_i=(1-z_i)/2\)</span>, the problem transorm to -</p>
+<div class="tip admonition">
+<p class="admonition-title">Some algebra</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{split}
@@ -414,19 +641,39 @@ C(\{z_i\}) &amp;= \frac{1}{2} \sum_i (\mu_i z_i-\mu_i) + \frac{q}{4}\sum_{ij} (\
 &amp;= \text{const} + \frac{1}{4}\left(\sum_i  c_i z_i + q\sum_{i \ne j} \sigma_{ij} z_i z_j \right) \\
 \end{split}
 \end{split}\]</div>
-<p>Now we have the Quantum Hamiltonian:</p>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Now we have the Quantum Hamiltonian:</p>
 <div class="math notranslate nohighlight">
-\[H = \sum_i  c_i Z_i + q\sum_{i \ne j} \sigma_{ij} Z_i Z_j \]</div>
+\[
+H = \sum_i  c_i Z_i + q\sum_{i \ne j} \sigma_{ij} Z_i Z_j
+\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(c_i=2\mu - q\sum_j(\sigma_{ij} + \sigma_{ji})\)</span>.</p>
+</div>
+</div>
 <p>Given an ansatz <span class="math notranslate nohighlight">\(|\psi(\theta)\rangle\)</span> we minimize <span class="math notranslate nohighlight">\(\langle \psi(\theta)|H|\psi(\theta)\rangle\)</span> to find our solution.</p>
 </section>
 <section id="with-constraint">
-<h2>With constraint<a class="headerlink" href="#with-constraint" title="Link to this heading">#</a></h2>
+<h3>With constraint<a class="headerlink" href="#with-constraint" title="Link to this heading">#</a></h3>
 <p>Suppose we have a budget <span class="math notranslate nohighlight">\(B \in N\)</span> we must spend, i.e.</p>
 <div class="math notranslate nohighlight">
 \[\sum_i x_i = B\]</div>
-</section>
+<p>We can force our quantum algorithm to find such solution by introducing a penalty term in the cost function</p>
+<div class="math notranslate nohighlight">
+\[
+C_{\text{penalty}} = \lambda \left(\sum_i x_i - B\right)^2
+\]</div>
+<p>Thus our Hamiltonian is now</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="math notranslate nohighlight">
+\[H = \sum_i  \left(c_i - \lambda \tilde n \right) Z_i + \sum_{i \ne j} \left(q\sigma_{ij}  + \frac{\lambda}{4} \right) Z_i Z_j  \]</div>
+</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde n = \frac{n - 2B}{2}.\)</span></p>
 <section id="id1">
-<h2>Quantum Solution<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<h4>Quantum Solution<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
 <p>We can force our quantum algorithm to find such solution by introducing a penalty term in the cost function</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -439,6 +686,31 @@ C_{\text{penalty}} &amp;= \lambda \left(\sum_i x_i - B\right)^2 = \lambda \left(
 <p>Thus our Hamiltonian is now</p>
 <div class="math notranslate nohighlight">
 \[H = \sum_i  \left(c_i - \lambda \tilde n \right) Z_i + \sum_{i \ne j} \left(q\sigma_{ij}  + \frac{\lambda}{4} \right) Z_i Z_j  \]</div>
+<div class="tip admonition">
+<p class="admonition-title">Tutorial notebook</p>
+<p>The tutorial notebooks are in folder <code class="docutils literal notranslate"><span class="pre">exercise3</span></code> of the <a class="reference external" href="https://github.com/ICHEC/QTrain/tree/main">QTrain</a> repository.</p>
+<ul class="simple">
+<li><p>Notebook link 1: <a class="github reference external" href="https://github.com/ICHEC/QTrain/blob/main/exercise3/SCynergy-QAOA.ipynb">ICHEC/QTrain</a></p></li>
+<li><p>Notebook Link 2: <a class="github reference external" href="https://github.com/ICHEC/QTrain/blob/main/exercise3/finance_qubo.ipynb">ICHEC/QTrain</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">#</a></h2>
+<p>We extend our gratitude to the Irish Centre for High-End Computing (ICHEC) and University of Galway for providing computing and for all-encompassing invaluable support. This project was funded by the <strong>EuroHPC JU</strong> under <strong>grant agreement No 951732</strong> and Ireland.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<a class="reference internal image-reference" href="../logos/logos.png"><img alt="../logos/logos.png" src="../logos/logos.png" style="width: 100%;" />
+</a>
+</div>
+</div>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h3>
+<p>[1] <a class="reference external" href="https://arxiv.org/abs/1302.5843">A. Lucas, <em>Ising formulations of many NP problems</em>, Front. Phys., 12 (2014).</a></p>
+<p>[2] [F. Glover, et al., <em>Quantum bridge analytics I: a tutorial on formulating and using QUBO models</em>, Annals of Operations Research 314.1 (2022): 141-183.]</p>
+</section>
 </section>
 </section>
 
@@ -497,13 +769,41 @@ C_{\text{penalty}} &amp;= \lambda \left(\sum_i x_i - B\right)^2 = \lambda \left(
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-optimization">Portfolio Optimization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-data">Create the Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-terms">Define Terms</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classial-solution">Classial Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-solution">Quantum Solution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#with-constraint">With constraint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quantum Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-unconstrained-binary-optimization-qubo">Quadratic Unconstrained Binary Optimization (QUBO)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-approximate-optimization-algorithm-qaoa">Quantum Approximate Optimization Algorithm (QAOA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-problem-example">Quadratic Problem example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-binary-optimization-problem-example">Linear Binary Optimization Problem example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-cut-definition"><strong>Graph Cut Definition</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-definition"><strong>Formal Definition</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#max-cut-problem-formulation"><strong>Max-Cut Problem Formulation</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation"><strong>Mathematical Formulation</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reformulation-in-terms-of-the-ising-model"><strong>Reformulation in Terms of the Ising Model</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-unconstrained-binary-optimization-qubo-formulation"><strong>Quadratic Unconstrained Binary Optimization (QUBO) Formulation</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizing-portfolios-with-qaoa">Optimizing portfolios with QAOA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem">The problem</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-data">Create the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-terms">Define Terms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classial-solution">Classial Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-solution">Quantum Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-constraint">With constraint</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quantum Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

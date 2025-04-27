@@ -338,9 +338,31 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topic-2-qsvm4eo">Topic 2: QSVM4EO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-case">Use case</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-machine-learning-and-quantum-machine-learning">Classical Machine Learning and Quantum Machine Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machines-svm">Support Vector Machines (SVM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#primal-formulation">Primal formulation</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-lagrangian-formulation">Dual Lagrangian formulation</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-trick">Kernel trick</a></li>
 </ul>
 </li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-enhanced-support-vector-machines-qsvm">Quantum-enhanced Support Vector Machines (QSVM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-dot-product">Quantum Dot product</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-kernels">Quantum Kernels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#train-tile">Train tile:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-tile">Test tile:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions-and-future-work">Conclusions and future work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
             </nav>
         </div>
@@ -364,55 +386,303 @@ document.write(`
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <section id="use-case">
 <h3>Use case<a class="headerlink" href="#use-case" title="Link to this heading">#</a></h3>
-<p>What we’re doing and why</p>
+<p>The proliferation of EO data from diverse sources in recent years has exhibited an exponential growth in both the volume and quality of data. This exponential growth requires new approaches to managing and using the data, taking advantage of advancements in contemporary technologies. Machine Learning (ML) techniques offer promising venues for investigating new ways of gaining insight from the data. Combined with new computing paradigms, like Quantum Computing (QC), this approach is a promising aspect to achieve results faster and, potentially, with higher accuracy. Quantum Machine Learning, a fusion of classical ML and quantum mechanics, leverages entanglement and superposition to uncover hidden data patterns, potentially reducing computational resources and processing time.</p>
+<div class="information admonition">
+<p class="admonition-title">Goals:</p>
+<ul class="simple">
+<li><p>Keep exploring and adding examples to the state of the art of QC4EO</p></li>
+<li><p>Investigate setting up HPC-QC pipelines for EO data</p></li>
+<li><p>Look for use cases where QML could potentially provide advantage over classical ML</p></li>
+<li><p>Evaluate performance of QSVM on “high” amount of data (starting with basic quantum encoding schemes)</p></li>
+<li><p>Offloading of processing on satellites once Quantum Computers are available onboard</p></li>
+</ul>
+</div>
 </section>
 <section id="theory">
 <h3>Theory<a class="headerlink" href="#theory" title="Link to this heading">#</a></h3>
-<p>Explain classical and quantum solutions…</p>
-<figure class="align-center">
-<img alt="_images/SVM_margin.png" src="_images/SVM_margin.png" />
+<section id="classical-machine-learning-and-quantum-machine-learning">
+<h4>Classical Machine Learning and Quantum Machine Learning<a class="headerlink" href="#classical-machine-learning-and-quantum-machine-learning" title="Link to this heading">#</a></h4>
+<p>Combining quantum computing with machine learning leads to a new and intriguing discipline - quantum machine learning (QML). As we could also have classical or quantum data, we end up with four different combinations, depending of the type of the computation and the type of data used:</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="images/QML_approaches.jpg"><img alt="images/QML_approaches.jpg" src="images/QML_approaches.jpg" style="width: 300px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Source: Schuld, M. and Petruccione, F. (2021), <em>Machine Learning with Quantum Computers</em>, Springer.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
 </figure>
+<p>The typical flow in training and performing inference with a QML algorithm is similar to classical ML, with two extra steps. Since we’re dealing with classical data, it needs to be converted into quantum data. This is done in the <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">encoding</span> <span class="pre">step</span></code> (also called <code class="docutils literal notranslate"><span class="pre">state</span> <span class="pre">preparation</span></code>) and it’s not a trivial step and has great repercussions on the performance of the model. Once the processing is done on the quantum computer, to get access to the result a <code class="docutils literal notranslate"><span class="pre">Read</span> <span class="pre">out</span></code> or <code class="docutils literal notranslate"><span class="pre">measurement</span></code> step needs to be performed, as the information in the qubits is not directly accessible.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="images/QML_general_workflow.jpg"><img alt="images/QML_general_workflow.jpg" src="images/QML_general_workflow.jpg" style="width: 400px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Source: Schuld, M. and Petruccione, F. (2021), <em>Machine Learning with Quantum Computers</em>, Springer.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Classical data needs to be converted to quantum states before it could be manipulated by quantum computers. There are different <code class="docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">encoding</span></code>(sometimes also called also <code class="docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">embedding</span></code> or <code class="docutils literal notranslate"><span class="pre">quantum</span> <span class="pre">feature</span> <span class="pre">map</span></code>) techniques, all with the common goal of translating a classical datapoint <span class="math notranslate nohighlight">\(x\)</span> into the state of qubits or parameters of quantum gates with the final goal of creating an initial quantum state <span class="math notranslate nohighlight">\(\mid\psi\rangle\)</span>, dependent on the initial datapoint. Three popular basic quantum encoding are <code class="docutils literal notranslate"><span class="pre">basis</span> <span class="pre">encoding</span></code>, <code class="docutils literal notranslate"><span class="pre">amplitude</span> <span class="pre">encoding</span></code> and <code class="docutils literal notranslate"><span class="pre">rotation</span> <span class="pre">encoding</span></code>. The rotation encoding` applies a parametrized rotation gate to a qubit (for example Pauli Z rotation) for each classical data feature.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="images/Bloch_sphere.jpg"><img alt="images/Bloch_sphere.jpg" src="images/Bloch_sphere.jpg" style="width: 300px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">A qubit, visualized as a point on a sphere.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="support-vector-machines-svm">
+<h4>Support Vector Machines (SVM)<a class="headerlink" href="#support-vector-machines-svm" title="Link to this heading">#</a></h4>
+<p>The SVM algorithm, in it’s original linear definition, is very similar to the linear classifier. But instead of trying to find any hyperplane separating the two data classes, it’s goal is to find the maximum margin between them with the assumption that they are linearly separable.</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/SVM_margin.png"><img alt="_images/SVM_margin.png" src="_images/SVM_margin.png" style="width: 300px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Source: <a class="reference external" href="https://commons.wikimedia.org/wiki/File:SVM_margin.png">Source: Wikipedia</a></span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="primal-formulation">
+<h5>Primal formulation<a class="headerlink" href="#primal-formulation" title="Link to this heading">#</a></h5>
+<p>The separation line is computed by the following equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{w}^{\top} \mathbf{x}-b=0
+\]</div>
+<p>This could be reformulated as an optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[
+\underset{\mathbf{w}, b}{\operatorname{argmin}} \frac{1}{2}\|\mathbf{w}\|^{2}
+\]</div>
+<p>with the following constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\mathbf{w}^{\top} \mathbf{x}_{i}-b \geq 1 &amp; \text { for } y_{i}=1 \\
+\mathbf{w}^{\top} \mathbf{x}_{i}-b \leq-1 &amp; \text { for } y_{i}=-1
+\end{aligned}
+\end{split}\]</div>
+</section>
+<section id="dual-lagrangian-formulation">
+<h5>Dual Lagrangian formulation<a class="headerlink" href="#dual-lagrangian-formulation" title="Link to this heading">#</a></h5>
+<p>In practice the Dual Lagrangian formulation is used:</p>
 <div class="note admonition">
-<p class="admonition-title">Dual Lagrangian formulation:</p>
+<p class="admonition-title">Lagrangian</p>
 <div class="math notranslate nohighlight">
 \[
 \mathcal{L}(\boldsymbol{\alpha})=\sum_{n=1}^{N} \alpha_{n}-\frac{1}{2} \sum_{n=1}^{N} \sum_{m=1}^{N} y_{n} y_{m} \alpha_{n} \alpha_{m} \mathbf{x}_{n}^{\top} \mathbf{x}_{m}
 \]</div>
 </div>
-<figure class="align-center">
-<img alt="_images/SVM_kernel.png" src="_images/SVM_kernel.png" />
+<p>which is maximized w.r.t. to <span class="math notranslate nohighlight">\(\alpha\)</span> subject to constraints:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{array}{r}
+\alpha_n \geq 0 \text { for } n=1, \cdots, N ;\qquad \qquad \sum_{n=1}^N \alpha_n y_n=0
+\end{array}
+\]</div>
+<p>In this formulation the values of the Lagrangian multipliers <span class="math notranslate nohighlight">\(\alpha\)</span> could be found with quadratic programming.</p>
+</section>
+<section id="kernel-trick">
+<h5>Kernel trick<a class="headerlink" href="#kernel-trick" title="Link to this heading">#</a></h5>
+<p>The above formulations work for linearly separable data, but the real-world datasets are rarely linearly separable. In cases where the data points are intermixed, one could use a transformation function that is applied to the original datapoints <span class="math notranslate nohighlight">\(x_i\)</span> that maps them to a new feature space. The hope is that in this new feature space the mapped datapoints <span class="math notranslate nohighlight">\(z_i\)</span> are linearly separable.</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/SVM_kernel.png"><img alt="_images/SVM_kernel.png" src="_images/SVM_kernel.png" style="width: 600px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Source: <a class="reference external" href="https://www.hackerearth.com/blog/developers/simple-tutorial-svm-parameter-tuning-python-r/">https://www.hackerearth.com/blog/developers/simple-tutorial-svm-parameter-tuning-python-r/</a></span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
 </figure>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
 <div class="math notranslate nohighlight">
 \[
 \mathcal{L}(\boldsymbol{\alpha})=\sum_{n=1}^{N} \alpha_{n}-\frac{1}{2} \sum_{n=1}^{N} \sum_{m=1}^{N} y_{n} y_{m} \alpha_{n} \alpha_{m} \mathbf{z}_{n}^{\top} \mathbf{z}_{m}
 \]</div>
+</div>
+</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{array}{r}
+\alpha_n \geq 0 \text { for } n=1, \cdots, N ;\quad \qquad \sum_{n=1}^N \alpha_n y_n=0
+\end{array}
+\]</div>
+<p>Computing those new datapoints <span class="math notranslate nohighlight">\(z_i\)</span> could be quite computationally expensive. To avoid it we could apply the kernel trick: instead of computing each new datapoint in the new feature space, what we need is some measure of distance between the datapoint vectors, for example their dot product, as seen in the equation above. So if we could compute it directly, by using the data in the original input space, we could speed up the computation and get access to kernels in infinite dimensions (for example the RBF kernel).</p>
 <p>Some classical kernel functions:</p>
+<div class="pst-scrollable-table-container"><table class="table table-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Kernel</p></th>
+<th class="head"><p>Hyperparameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Linear</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathbf{x}^{T} \mathbf{x}^{\prime}\)</span></p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p>Polynomial</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(\mathbf{x}^{T} \mathbf{x}^{\prime}+c\right)^{p}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(p \in \mathbb{N}, c \in \mathbb{R}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Gaussian</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathrm{e}^{-\gamma\left|\mathbf{x}-\mathbf{x}^{\prime}\right|^{2}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\gamma \in \mathbb{R}^{+}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Exponential</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathrm{e}^{-\gamma\left|\mathbf{x}-\mathbf{x}^{\prime}\right|}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\gamma \in \mathbb{R}^{+}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Sigmoid</p></td>
+<td><p><span class="math notranslate nohighlight">\(\tanh \left(\mathbf{x}^{T} \mathbf{x}^{\prime}+c\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(c \in \mathbb{R}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="quantum-enhanced-support-vector-machines-qsvm">
+<h4>Quantum-enhanced Support Vector Machines (QSVM)<a class="headerlink" href="#quantum-enhanced-support-vector-machines-qsvm" title="Link to this heading">#</a></h4>
+<section id="quantum-dot-product">
+<h5>Quantum Dot product<a class="headerlink" href="#quantum-dot-product" title="Link to this heading">#</a></h5>
+<p>A single qubit state is mathematically defined as a unit vector in a two-dimensional complex vector space, i.e. a Hilbert Space. We could write the qubit state would be by using the vector notation - this is called a <code class="docutils literal notranslate"><span class="pre">ket</span></code> :</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{array}{l|l|l}
-\hline \text { Name } &amp; \text { Kernel } &amp; \text { Hyperparameters } \\
-\hline \text { Linear } &amp; \mathbf{x}^{T} \mathbf{x}^{\prime} &amp; - \\
-\hline \text { Polynomial } &amp; \left(\mathbf{x}^{T} \mathbf{x}^{\prime}+c\right)^{p} &amp; p \in \mathbb{N}, c \in \mathbb{R} \\
-\hline \text { Gaussian } &amp; \mathrm{e}^{-\gamma\left\|\mathbf{x}-\mathbf{x}^{\prime}\right\|^{2}} &amp; \gamma \in \mathbb{R}^{+} \\
-\hline \text { Exponential } &amp; \mathrm{e}^{-\gamma\left\|\mathbf{x}-\mathbf{x}^{\prime}\right\|} &amp; \gamma \in \mathbb{R}^{+} \\
-\hline \text { Sigmoid } &amp; \tanh \left(\mathbf{x}^{T} \mathbf{x}^{\prime}+c\right) &amp; c \in \mathbb{R} \\
-\hline
-\end{array}
+|\psi\rangle=\left[\begin{array}{l}
+\alpha \\
+\beta
+\end{array}\right]
 \end{split}\]</div>
-<figure class="align-center" id="id1">
-<img alt="_images/SVM_QSVM_workflows.png" src="_images/SVM_QSVM_workflows.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Classical and Quantum enhanced SVG workflow</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<figure class="align-center" id="id2">
-<a class="reference internal image-reference" href="_images/kernel_circuit.png"><img alt="_images/kernel_circuit.png" src="_images/kernel_circuit.png" style="width: 150%;" />
+<p>As the coefficients (or amplitudes) <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are complex number, we can take their conjugates <span class="math notranslate nohighlight">\(\bar{\alpha}\)</span> and <span class="math notranslate nohighlight">\(\bar{\beta}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\alpha &amp; =x_0+i y_0 \\
+\bar{\alpha} &amp; =x_0-i y_0
+\end{aligned}
+\end{split}\]</div>
+<p>The conjugates helps us introduce the complement of a <code class="docutils literal notranslate"><span class="pre">ket</span></code>, called a <code class="docutils literal notranslate"><span class="pre">bra</span></code>, which is it’s conjugate transpose:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle\psi|=|\psi\rangle^{\dagger}=\left[\begin{array}{ll}
+\bar{\alpha} &amp; \bar{\beta}
+\end{array}\right]
+\]</div>
+<p>With this notation it becomes very easy to write dot products of quantum states in Hilbert space - for example the dot product of the state <span class="math notranslate nohighlight">\(\mid \psi\rangle\)</span> with itself is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle\psi \mid \psi\rangle=|\alpha|^2+|\beta|^2=1
+\]</div>
+</section>
+<section id="quantum-kernels">
+<h5>Quantum Kernels<a class="headerlink" href="#quantum-kernels" title="Link to this heading">#</a></h5>
+<p>Constructing quantum kernels is surprisingly simple. One approach is to first encode feature <span class="math notranslate nohighlight">\(x_n\)</span> using rotation encoding routine <span class="math notranslate nohighlight">\(S(x_n)\)</span>. This produces a quantum state <span class="math notranslate nohighlight">\(\mid \phi\rangle\)</span>, parametrized on <span class="math notranslate nohighlight">\(x_n\)</span>. Then we reuse the same quantum circuit and this time encode feature <span class="math notranslate nohighlight">\(x_m\)</span> using the inverse embedding <span class="math notranslate nohighlight">\(S(x_m)^†\)</span>, which produces a quantum state <span class="math notranslate nohighlight">\(\langle \phi\mid\)</span>, this time parametrized on <span class="math notranslate nohighlight">\(x_m\)</span>. This now forms a circuit, which is the dot product of the two encoded states, which defines a distance measure in Hilbert space. The last step is to perform projective measurement on the initial state, which produces the following quantum embedding kernel (QEK), dependent only on the two original classic data features <span class="math notranslate nohighlight">\(x_n\)</span> and <span class="math notranslate nohighlight">\(x_m\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+k\left(\boldsymbol{x_n}, \boldsymbol{x_m}\right)=\left|\left\langle\phi\left(\boldsymbol{x_m}\right) \mid \phi(\boldsymbol{x_n})\right\rangle\right|^{2}
+\]</div>
+<p>By encoding the data into quantum Hilbert Space in a clever way and without doing any additional operations we’re able to get a kernel producing a distance measure between datapoints.</p>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="_images/kernel_circuit.png"><img alt="_images/kernel_circuit.png" src="_images/kernel_circuit.png" style="width: 600px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">A schematic of the quantum circuit.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text"><a class="reference external" href="https://pennylane.ai/qml/demos/tutorial_kernel_based_training">Source: Pennylane tutorial</a></span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Now we could put everything together and define a quantum-enhanced version of Quantum Support Vector Machines (QSVM). In this particular version of QSVM all the classical computation steps in training a model and performing inference stay the same, with the exception of the computation of the kernel matrix, which is performed on a quantum computer or quantum software simulator. The dual Lagrangian is modified as follows:</p>
+<div class="information admonition">
+<p class="admonition-title">Lagrangian, Quantum</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(\boldsymbol{\alpha})=\sum_{n=1}^N \alpha_n-\frac{1}{2} \sum_{n=1}^N \sum_{m=1}^N y_n y_m \alpha_n \alpha_m\left|\left\langle\phi\left(x_n\right) \mid \phi\left(x_m\right)\right\rangle\right|^2
+\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(\phi(x_i)\)</span> is a quantum feature map, encoding the classical data vector <span class="math notranslate nohighlight">\(x_i\)</span> into quantum Hilbert space.</p>
+<p>Comparison of the steps of a classical and quantum-enhanced SVM is shown below:</p>
+<figure class="align-center" id="id7">
+<img alt="_images/SVM_QSVM_workflows.png" src="_images/SVM_QSVM_workflows.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Classical and Quantum enhanced SVG workflow</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
+</section>
+</section>
+<section id="dataset">
+<h3>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h3>
+<p>Dataset source: MultiSen – France, South-West – <a class="reference external" href="https://zenodo.org/records/6375466">https://zenodo.org/records/6375466</a></p>
+<ul class="simple">
+<li><p>Sentinel-2 multi-spectral data with labels:</p>
+<ul>
+<li><p>Bands 02, 03, 04 and 08 values for each of the selected pixels was extracted</p></li>
+<li><p>NDVI, EVI, SAVI and NDWI indices were calculated and added</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="images/Sentinel2_Spectral_Bands.png"><img alt="images/Sentinel2_Spectral_Bands.png" src="images/Sentinel2_Spectral_Bands.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Source: <a class="reference external" href="https://www.researchgate.net/figure/Sentinel-2-MSI-spectral-bands-vs-spatial-resolution-with-corresponding-Full-Width-at_fig14_349312687">link</a></span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Tiles: Two rural regions with size <span class="math notranslate nohighlight">\(32\times 32\)</span> in south-western France selected. Each tile contains pixels in one of the follow 3 categories:</p>
+<ul class="simple">
+<li><p>Urban areas</p></li>
+<li><p>Agricultural areas</p></li>
+<li><p>Forests and semi-natural areas</p></li>
+</ul>
+<section id="train-tile">
+<h4>Train tile:<a class="headerlink" href="#train-tile" title="Link to this heading">#</a></h4>
+<a class="reference internal image-reference" href="images/train_tile.png"><img alt="images/train_tile.png" class="align-center" src="images/train_tile.png" style="width: 100%;" />
+</a>
+</section>
+<section id="test-tile">
+<h4>Test tile:<a class="headerlink" href="#test-tile" title="Link to this heading">#</a></h4>
+<a class="reference internal image-reference" href="images/test_tile.png"><img alt="images/test_tile.png" class="align-center" src="images/test_tile.png" style="width: 100%;" />
+</a>
+<div class="tip admonition">
+<p class="admonition-title">Tutorial notebook</p>
+<p>The tutorial notebook is in folder <code class="docutils literal notranslate"><span class="pre">exercise2</span></code> of the <a class="reference external" href="https://github.com/ICHEC/QTrain/tree/main">QTrain</a> repository.</p>
+<ul class="simple">
+<li><p>Notebook link: <a class="github reference external" href="https://github.com/ICHEC/QTrain/blob/main/exercise2/QSVM4EO.ipynb">ICHEC/QTrain</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+<section id="conclusions-and-future-work">
+<h2>Conclusions and future work<a class="headerlink" href="#conclusions-and-future-work" title="Link to this heading">#</a></h2>
+<p>Conclusions:</p>
+<ul class="simple">
+<li><p>QSVM shows promising potential in the EO use case</p></li>
+<li><p>Some quantum encoding schemes perform on par with the best classical SVM kernels</p></li>
+</ul>
+<p>Future work:</p>
+<ul class="simple">
+<li><p>Investigate other quantum encoding schemes</p></li>
+<li><p>Investigate other quantum computing modalities – ie analog quantum computing</p></li>
+<li><p>Investigate other quantum machine learning techniques – ie quantum reservoir computing</p></li>
+<li><p>Run on actual quantum hardware</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://work.caltech.edu/slides/slides14.pdf">http://work.caltech.edu/slides/slides14.pdf</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1803.07128">https://arxiv.org/abs/1803.07128</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/2101.11020">https://arxiv.org/abs/2101.11020</a></p></li>
+<li><p><a class="reference external" href="https://qiskit-community.github.io/qiskit-machine-learning/tutorials/03_quantum_kernel.html">https://qiskit-community.github.io/qiskit-machine-learning/tutorials/03_quantum_kernel.html</a></p></li>
+<li><p><a class="reference external" href="https://docs.quantum.ibm.com/api/qiskit/qiskit.circuit.library.ZFeatureMap">https://docs.quantum.ibm.com/api/qiskit/qiskit.circuit.library.ZFeatureMap</a></p></li>
+<li><p><a class="reference external" href="https://docs.quantum.ibm.com/api/qiskit/qiskit.circuit.library.ZZFeatureMap">https://docs.quantum.ibm.com/api/qiskit/qiskit.circuit.library.ZZFeatureMap</a></p></li>
+<li><p><a class="reference external" href="https://pennylane.ai/qml/demos/tutorial_kernel_based_training">https://pennylane.ai/qml/demos/tutorial_kernel_based_training</a></p></li>
+</ul>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">#</a></h2>
+<p>We extend our gratitude to the Irish Centre for High-End Computing (ICHEC) and University of Galway for providing computing and for all-encompassing invaluable support. This project was funded by the <strong>EuroHPC JU</strong> under <strong>grant agreement No 951732</strong> and Ireland.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<a class="reference internal image-reference" href="../logos/logos.png"><img alt="../logos/logos.png" src="../logos/logos.png" style="width: 100%;" />
+</a>
+</div>
+</div>
 </section>
 </section>
 
@@ -483,9 +753,31 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topic-2-qsvm4eo">Topic 2: QSVM4EO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-case">Use case</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-machine-learning-and-quantum-machine-learning">Classical Machine Learning and Quantum Machine Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machines-svm">Support Vector Machines (SVM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#primal-formulation">Primal formulation</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-lagrangian-formulation">Dual Lagrangian formulation</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-trick">Kernel trick</a></li>
 </ul>
 </li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-enhanced-support-vector-machines-qsvm">Quantum-enhanced Support Vector Machines (QSVM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-dot-product">Quantum Dot product</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-kernels">Quantum Kernels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#train-tile">Train tile:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-tile">Test tile:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions-and-future-work">Conclusions and future work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
   </nav></div>
 

@@ -105,13 +105,7 @@ later using `scancel` once the session is over.
 We extend our gratitude to the Irish Centre for High-End Computing (ICHEC) and University of Galway for providing computing and for all-encompassing invaluable support. This project was funded by the **EuroHPC JU** under **grant agreement No 951732** and Ireland.
 
 ``````{card}
-```{image} ./images/ICHEC.png
-:width: 322px
-```
-```{image} ./images/UoG_.png
-:width: 300px
-```
-```{image} ./images/EuroCC-Ireland.png
-:width: 100px
+```{image} ../logos/logos.png
+:width: 100%
 ```
 ``````
