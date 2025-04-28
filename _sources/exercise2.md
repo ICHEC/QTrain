@@ -42,7 +42,7 @@ The typical flow in training and performing inference with a QML algorithm is si
 
 ```{figure} ./images/QML_general_workflow.jpg
 :align: center
-:width: 400
+:width: 100%
 
 Source: Schuld, M. and Petruccione, F. (2021), *Machine Learning with Quantum Computers*, Springer.
 ```
