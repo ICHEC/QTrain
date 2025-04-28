@@ -14,3 +14,4 @@ qiskit-nature-pyscf           # pyscf example uses this
 # pennylane part
 pennylane                     # main pennylane package
 pennylane-qiskit              # qiskit plugin
+joblib
