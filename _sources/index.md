@@ -70,9 +70,11 @@ We have a list of [prerequisites](./prerequisite.md), circulated before for ever
 
 - All the content, including this page and the tutorial notebooks, is hosted in a public github repository
     - https://github.com/ICHEC/QTrain
-    - It should be downloaded using 
+    - It should be downloaded using git command
     
-    `git clone https://github.com/ICHEC/QTrain.git`
+    ```bash
+    git clone https://github.com/ICHEC/QTrain.git
+    ```
 
 - All training material uses [Qiskit](https://www.ibm.com/quantum/qiskit) package.
 - The primary portal for training is jupyterlab server jlab.lxp.lu Hosted by LuxProvide.
